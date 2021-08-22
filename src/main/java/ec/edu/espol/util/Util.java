@@ -17,12 +17,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Properties;
-import javax.mail.Message;
+/*import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMessage;/*
 
 
 /**
@@ -205,7 +205,7 @@ public class Util {
         }while(opc<1 && opc>3);
         return opc;
     }
-   
+   /*
     public static void enviarMail(String correoCompr, String correoVend) {
         Scanner sc = new Scanner(System.in);
         String usuario = correoVend.split("@")[0];  //Para la dirección usuario@gmail.com
@@ -238,5 +238,5 @@ public class Util {
         catch (MessagingException me) {
             me.printStackTrace();   
         }
-    }
+    }*/
 }

@@ -147,7 +147,7 @@ public class Vendedor extends Usuario{
         }
         vehiculosUpdate.remove(delVehiculo.getId()-1);
         Vehiculo.overwriteFile("vehiculos.txt", vehiculosUpdate);
-        Util.enviarMail(Oferta.searchByID(vehiculo.getOfertas(), idOferta).getCorreoCompr(), this.correo);
+       // Util.enviarMail(Oferta.searchByID(vehiculo.getOfertas(), idOferta).getCorreoCompr(), this.correo);
         System.out.println("¡Oferta aceptada! \nSe enviará un correo al comprador indicando que su oferta fue aceptada.");
     }
     
