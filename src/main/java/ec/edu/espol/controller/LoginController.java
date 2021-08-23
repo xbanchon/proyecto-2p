@@ -5,9 +5,16 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.proyecto2p.App;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 
 /**
  * FXML Controller class
@@ -16,6 +23,9 @@ import javafx.fxml.Initializable;
  */
 public class LoginController implements Initializable {
 
+    @FXML
+    private Button returnbtn;
+
     /**
      * Initializes the controller class.
      */
@@ -23,5 +33,16 @@ public class LoginController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void backToInicio(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = App.loadFXMLLoader("inicio");
+            App.setRoot(fxmlLoader);
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+            a.show();
+        }  
+    }
     
 }
