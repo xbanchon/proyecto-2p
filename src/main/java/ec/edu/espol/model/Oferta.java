@@ -90,7 +90,7 @@ public class Oferta {
     }
     
     public static void nextOferta(int idVehiculo, int idComprador, double precioOfertado, String nomArchivo){
-        int id = Util.nextID(nomArchivo);
+        int id = 0;
         Comprador comprador = Comprador.searchByID(Comprador.leerArchivo("compradores.txt"), idComprador);
         Vehiculo vehiculo = Vehiculo.searchByID(Vehiculo.leerArchivo("vehiculos.txt"), idVehiculo);
         Oferta oferta = new Oferta(id,idComprador,idVehiculo,precioOfertado,comprador.getCorreo());

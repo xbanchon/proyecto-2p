@@ -10,7 +10,10 @@ import ec.edu.espol.model.Oferta;
 import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
 import ec.edu.espol.model.Vendedor;
-import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Scanner;
 import java.math.BigInteger; 
 import java.nio.charset.StandardCharsets;
@@ -18,12 +21,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Properties;
-/*import javax.mail.Message;
+import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;/*
+import javax.mail.internet.MimeMessage;
 
 
 /**
@@ -34,6 +37,8 @@ public class Util {
     
     private Util(){}
     
+    //Método para asignar IDs a partir del tamaño de una lista. 
+    //Se asume que en ningún momento se eliminan objetos de esa lista.
     public static int nextID(ArrayList<Usuario> usuarios){
         int id = 0;
         if(!usuarios.isEmpty()){
@@ -45,10 +50,10 @@ public class Util {
     public static byte[] getSHA(String string){ 
         MessageDigest md;
         try{
-        md = MessageDigest.getInstance("SHA-256");
+            md = MessageDigest.getInstance("SHA-256");
         }
         catch(NoSuchAlgorithmException e){
-        throw new IllegalArgumentException(e);
+            throw new IllegalArgumentException(e);
         }
         return md.digest(string.getBytes(StandardCharsets.UTF_8)); 
     }
@@ -196,19 +201,20 @@ public class Util {
         }while(opc<1 && opc>3);
         return opc;
     }
-   /*
-    public static void enviarMail(String correoCompr, String correoVend) {
-        Scanner sc = new Scanner(System.in);
-        String usuario = correoVend.split("@")[0];  //Para la dirección usuario@gmail.com
-        System.out.println("Ingrese la contraseña de su cuenta de G-Mail:");
-        sc.useDelimiter("\n");
-        String pass = sc.nextLine();
+   
+    public static void enviarMail(String correoCompr) {
+        Properties propmail = new Properties();
+        try(InputStream ins = new FileInputStream("mail.properties")){
+            propmail.load(ins);
+        }
+        catch(FileNotFoundException ex){} 
+        catch(IOException ex){}
         
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
-        props.put("mail.smtp.mail.sender", correoVend);
-        props.put("mail.smtp.user", usuario);
-        props.put("mail.smtp.clave", pass);  //Clave de la cuenta (Se la pedirá al usuario antes de enviar el correo) 
+        props.put("mail.smtp.mail.sender", propmail.getProperty("email"));
+        props.put("mail.smtp.user", "Vendedor");
+        props.put("mail.smtp.clave", propmail.getProperty("password")); 
         props.put("mail.smtp.auth", "true");    
         props.put("mail.smtp.starttls.enable", "true"); 
         props.put("mail.smtp.port", "587"); 
@@ -222,12 +228,10 @@ public class Util {
             message.setSubject("Oferta por vehículo");
             message.setText("Su oferta ha sido aceptada!");
             Transport transport = session.getTransport("smtp");
-            transport.connect(usuario,pass);
+            transport.connect(propmail.getProperty("email"), propmail.getProperty("password"));
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
         }
-        catch (MessagingException me) {
-            me.printStackTrace();   
-        }
-    }*/
+        catch (MessagingException me) {}
+    }
 }

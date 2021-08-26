@@ -247,7 +247,7 @@ public class Vehiculo {
         String tipoCombustible = sc.next();
         System.out.println("Ingrese el precio del vehículo: ");
         double precio = sc.nextDouble();
-        int id = Util.nextID(nomArchivo);
+        int id = 0;
         if(tipoVehiculo.equals("motocicleta")){
             Vehiculo vehiculo = new Vehiculo(id,placa,marca,modelo,tipoMotor,anio,recorrido,color,tipoCombustible,precio,idVendedor);
             vehiculo.setTipoVehiculo(tipoVehiculo);
