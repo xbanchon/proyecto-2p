@@ -7,6 +7,7 @@ package ec.edu.espol.util;
 
 import ec.edu.espol.model.Comprador;
 import ec.edu.espol.model.Oferta;
+import ec.edu.espol.model.Usuario;
 import ec.edu.espol.model.Vehiculo;
 import ec.edu.espol.model.Vendedor;
 import java.io.File;
@@ -33,22 +34,12 @@ public class Util {
     
     private Util(){}
     
-    public static int nextID(String nomArchivo)
-    {
+    public static int nextID(ArrayList<Usuario> usuarios){
         int id = 0;
-        try(Scanner sc = new Scanner(new File(nomArchivo)))
-        {
-           while(sc.hasNextLine())
-           {
-               String linea = sc.nextLine();
-               String[] tokens = linea.split("\\|");
-               id = Integer.parseInt(tokens[0]);
-           }
+        if(!usuarios.isEmpty()){
+            id = usuarios.size();
         }
-        catch(Exception e)
-        {
-        }
-        return id+1;
+        return id;
     }
     
     public static byte[] getSHA(String string){ 
@@ -120,7 +111,7 @@ public class Util {
         }
         switch(opcVendedor){
             case 1://Registrar vendedor
-                Vendedor.nextVendedor(sc,"vendedores.txt");
+                //Vendedor.nextVendedor(sc,"vendedores.txt");
                 break;
             case 2://Ingresar nuevo vehículo
                 do{
@@ -163,7 +154,7 @@ public class Util {
         Scanner sc = new Scanner(System.in);
         switch(opcComprador){
             case 1://Registrar comprador
-                Comprador.nextComprador(sc,"compradores.txt");
+                //Comprador.nextComprador(sc,"compradores.txt");
                 break;
             case 2://Ofertar por vehículo
                 do{

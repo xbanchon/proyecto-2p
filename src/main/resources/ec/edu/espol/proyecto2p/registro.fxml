@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -52,11 +53,11 @@
             <Insets right="5.0" />
          </GridPane.margin>
       </Text>
-      <PasswordField GridPane.columnIndex="3" GridPane.rowIndex="2" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <TextField GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <PasswordField fx:id="passtxt" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <TextField fx:id="nametxt" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="lastnametxt" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextField fx:id="orgtxt" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextField fx:id="emailtxt" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="REGISTRO" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.halignment="CENTER">
          <font>
             <Font name="Arial" size="24.0" />
@@ -64,9 +65,15 @@
       </Text>
       <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="4">
          <children>
-            <Button mnemonicParsing="false" text="Registrarse" />
+            <Button fx:id="signupbtn" mnemonicParsing="false" onMouseClicked="#registrar" text="Registrarse" />
             <Button fx:id="returnbtn" mnemonicParsing="false" onMouseClicked="#backToInicio" text="Regresar" />
          </children>
       </HBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Seleccione su rol:" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+         <GridPane.margin>
+            <Insets right="5.0" />
+         </GridPane.margin>
+      </Text>
+      <ComboBox fx:id="cbox" prefWidth="150.0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
    </children>
 </GridPane>

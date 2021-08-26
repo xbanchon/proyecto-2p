@@ -8,7 +8,10 @@ package ec.edu.espol.model;
 import ec.edu.espol.util.Util;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -81,13 +84,13 @@ public class Usuario {
         this.clave = clave;
     }
     
-    public void guardarArchivo(String nomArchivo){
-        try(PrintWriter pw = new PrintWriter(new FileOutputStream(new File(nomArchivo),true)))
+    public static void guardarArchivo(ArrayList<Usuario> usuarios,String nomArchivo){
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomArchivo)))
         {
-            pw.println(this.id+"|"+this.nombres+"|"+this.apellidos+"|"+this.organizacion+"|"+this.correo+"|"+this.clave);
+            out.writeObject(usuarios);
+            out.flush();
         }
-        catch(Exception e){
-            System.out.println(e.getMessage());
+        catch(IOException e){
         }
     }
     
@@ -96,7 +99,6 @@ public class Usuario {
             return true;
         }
         else{
-            System.out.println("Error. Ingrese un correo de Gmail válido.");
             return false;
         }
     }

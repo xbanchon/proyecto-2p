@@ -32,7 +32,7 @@ public class Vendedor extends Usuario{
     public void setVehiculos(ArrayList<Vehiculo> vehiculos) {
         this.vehiculos = vehiculos;
     }
- 
+ /*
     public static void nextVendedor(Scanner sc, String nomArchivo){
         System.out.println("Ingrese sus nombres: ");
         String nombres = sc.nextLine();
@@ -68,7 +68,7 @@ public class Vendedor extends Usuario{
                 System.out.println("\n ¡Ud. se ha registrado con éxito!");  
             }
         }
-    }
+    }*/
     
     public static ArrayList<Vendedor> leerArchivo(String nomArchivo){
         ArrayList<Vendedor> vendedores = new ArrayList<>();
