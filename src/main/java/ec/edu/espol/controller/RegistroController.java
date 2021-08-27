@@ -83,10 +83,10 @@ public class RegistroController implements Initializable {
         else{
             validarCampos();
             //Crear nuevo usuario
-            Usuario usuario = crearNuevoUsuario(cbox.getValue(),"usuarios.ser");
+            Usuario usuario = crearNuevoUsuario(cbox.getValue());
             //Añadirlo a una lista de usuarios y mandarla a serializar
             usuarios.add(usuario);
-            Usuario.guardarArchivo(usuarios,"usuarios.ser");//"usuarios.ser" es un nombre de archivo temporal.
+            Usuario.guardarUsuarios(usuarios);
             //Regresar a la pantalla de inicio
             try {
                 FXMLLoader fxmlLoader = App.loadFXMLLoader("inicio");
@@ -112,7 +112,7 @@ public class RegistroController implements Initializable {
                 a.show();
             }
         }
-        else if(Usuario.validarCorreo(emailtxt.getText())){
+        else if(Util.validarCorreo(emailtxt.getText())){
             try{
                 throw new InputMismatchException("Ingrese un correo de Gmail.");
             }
@@ -132,7 +132,7 @@ public class RegistroController implements Initializable {
         }
     }
     
-    Usuario crearNuevoUsuario(String value, String nomArchivo){
+    Usuario crearNuevoUsuario(String value){
         Usuario usuario;
         if(value.equals("Comprador")){
               int idComp = Util.nextID(usuarios);

@@ -6,10 +6,16 @@
 package ec.edu.espol.model;
 
 import ec.edu.espol.util.Util;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -84,8 +90,8 @@ public class Usuario {
         this.clave = clave;
     }
     
-    public static void guardarArchivo(ArrayList<Usuario> usuarios,String nomArchivo){
-        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(nomArchivo)))
+    public static void guardarUsuarios(ArrayList<Usuario> usuarios){
+        try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("usuarios.ser")))//Nombre de archivo provisional
         {
             out.writeObject(usuarios);
             out.flush();
@@ -94,15 +100,7 @@ public class Usuario {
         }
     }
     
-    public static boolean validarCorreo(String correo){
-        if(correo.endsWith("@gmail.com")){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-    
+ 
     @Override
     public String toString() {
         return "Usuario{" + "nombres=" + nombres + ", apellidos=" + apellidos + ", organizacion=" + organizacion + ", correo=" + correo + ", clave=" + clave + '}';
@@ -120,10 +118,8 @@ public class Usuario {
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if (!this.correo.equals(other.correo)) {
-            return false;
-        }
-        return true;
+        
+        return (this.correo).equals(other.correo);
     }
     
     

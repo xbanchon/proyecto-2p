@@ -5,16 +5,15 @@
  */
 package ec.edu.espol.util;
 
-import ec.edu.espol.model.Comprador;
-import ec.edu.espol.model.Oferta;
 import ec.edu.espol.model.Usuario;
-import ec.edu.espol.model.Vehiculo;
-import ec.edu.espol.model.Vendedor;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Scanner;
 import java.math.BigInteger; 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest; 
@@ -67,141 +66,61 @@ public class Util {
         } 
         return hexString.toString(); 
     }
-
-    public static void menu(){
-        System.out.println("Bienvenido al servicio de Compra-Venta de vehículos de segunda mano");
-        System.out.println("\n Escoga una opción: \n1.Vendedor \n2.Comprador \n3.Salir");
-        
-        Scanner sc = new Scanner(System.in);
-        int numOpcion = sc.nextInt();
-        
-        switch(numOpcion){
-            case 1://Vendedor
-                System.out.println("Usted ha elegido VENDEDOR");
-                int opcVendedor;
-                do{
-                System.out.println("\n Escoga una opción: \n1.Registrarse \n2.Ingresar un nuevo vehiculo \n3.Aceptar ofertas \n4.Regresar");
-                opcVendedor = sc.nextInt();
-                Util.menuVendedor(opcVendedor);
-                }while(opcVendedor<4);
-                break;
-            case 2://Comprador
-                System.out.println("Usted ha elegido COMPRADOR");
-                int opcComprador;
-                do{
-                System.out.println("\n Escoga una opción: \n1.Registrarse \n2.Ofertar por un vehiculo \n3.Regresar");
-                opcComprador = sc.nextInt();
-                Util.menuComprador(opcComprador);
-                }while(opcComprador<4);
-                break;
-            case 3://Terminar el programa
-                System.exit(0);
-                break;
-            default:
-                
-        }
-    }
-    
-    public static void menuVendedor(int opcVendedor){
-        String correo, clave;
-        Vendedor vendedor;
-        Scanner sc = new Scanner(System.in);
-        ArrayList<Vehiculo> vehiculos = Vehiculo.leerArchivo("vehiculos.txt");
-        ArrayList<Vendedor> vendedores = Vendedor.leerArchivo("vendedores.txt");
-        ArrayList<Comprador> compradores = Comprador.leerArchivo("compradores.txt");
-        ArrayList<Oferta> ofertas = Oferta.leerArchivo("ofertas.txt");
-        if(vehiculos.size() > 0){
-            Vehiculo.linkInfo(vehiculos, vendedores);
-            Oferta.linkInfo(vehiculos, ofertas, compradores);
-        }
-        switch(opcVendedor){
-            case 1://Registrar vendedor
-                //Vendedor.nextVendedor(sc,"vendedores.txt");
-                break;
-            case 2://Ingresar nuevo vehículo
-                do{
-                System.out.println("Ingrese su correo: ");
-                correo = sc.next();
-                System.out.println("Ingrese su clave:");
-                clave = sc.next();
-                if(Vendedor.validarInfo(correo,clave)){
-                    vendedor = Vendedor.searchByCorreo(vendedores,correo);
-                    vendedor.ingresarVehiculo(sc);
-                }
-                else
-                    System.out.println("¡CORREO O CLAVE INCORRECTOS! Inténtelo de nuevo.");
-                }while(!Vendedor.validarInfo(correo,clave));//validar credenciales
-                break;
-            case 3://Aceptar ofertas
-                do{
-                System.out.println("Ingrese su correo: ");
-                correo = sc.next();
-                System.out.println("Ingrese su clave:");
-                clave = sc.next();
-                if(Vendedor.validarInfo(correo,clave)){
-                    vendedor = Vendedor.searchByCorreo(vendedores,correo);
-                    Util.menuAceptarOferta(sc, vendedor);
-                }
-                else
-                    System.out.println("¡CORREO O CLAVE INCORRECTOS! Inténtelo de nuevo.");
-                }while(!Vendedor.validarInfo(correo,clave));//validar credenciales
-                break;
-            case 4://Regresar al menu pincipal
-                Util.menu();
-                break;
-            default:
-        }
-    }
-    
-    public static void menuComprador(int opcComprador){
-        String correo, clave;
-        Comprador comprador;
-        Scanner sc = new Scanner(System.in);
-        switch(opcComprador){
-            case 1://Registrar comprador
-                //Comprador.nextComprador(sc,"compradores.txt");
-                break;
-            case 2://Ofertar por vehículo
-                do{
-                System.out.println("Ingrese su correo: ");
-                correo = sc.next();
-                System.out.println("Ingrese su clave: ");
-                clave = sc.next();
-                if(Comprador.validarInfo(correo,clave)){
-                    comprador = Comprador.searchByCorreo(Comprador.leerArchivo("compradores.txt"), correo);
-                    ArrayList<Vehiculo> vehFiltr = Vehiculo.searchVehiculos(Vehiculo.leerArchivo("vehiculos.txt"), sc);
-                    if(vehFiltr.isEmpty()){
-                        System.out.println("Intente realizando una nueva búsqueda. \n");
-                    }
-                    else{
-                        int idVehiculo=1;
-                        int idVehEsc = Vehiculo.escogerVehiculo(vehFiltr, idVehiculo, sc);
-                        comprador.ofertar(sc,idVehEsc);
-                    }
-                }
-                }while(!Comprador.validarInfo(correo,clave));//validar credenciales
-                break;
-            case 3://Regresar al menu principal
-                Util.menu();
-                break;
-            default:
-        }  
-    }
-    
-    public static void menuAceptarOferta(Scanner sc, Vendedor vendedor){
-        System.out.println("Ingrese la placa del vehículo que desea consultar: ");
-        String placaVehiculo = sc.next();
-        Vehiculo.displayOferta(placaVehiculo,vendedor);      
-    }
-    
-    public static int escogerOpcion(Scanner sc){//Menu Ver Vehiculos.
-        int opc;
-        do{
-            opc = sc.nextInt();
-        }while(opc<1 && opc>3);
-        return opc;
-    }
    
+    public static void guardarCredencialesRegistro(Usuario usuario){
+        String hashPass = Util.toHexString(Util.getSHA(usuario.getClave()));
+        try(BufferedWriter bw = new BufferedWriter( new FileWriter("credenciales.txt",true) ) ){
+            bw.write(usuario.getCorreo() + "," + hashPass);
+            bw.newLine();
+        }
+        catch(IOException ex){}
+    }
+    
+    public static ArrayList<String> leerCredencialesRegistro(){
+        ArrayList<String> credencialesL = new ArrayList<>();
+        try(BufferedReader br = new BufferedReader(new FileReader("credenciales.txt"))){
+            String linea;
+            while((linea = br.readLine()) != null){
+                credencialesL.add(linea);
+            }
+        }
+        catch(FileNotFoundException ex){}
+        catch(IOException ex){}
+        finally{
+            return credencialesL;
+        }
+    }
+    
+    public static boolean validarCredenciales(String usuario, String clave){
+        ArrayList<String> credencialesL = leerCredencialesRegistro();
+        for(String registro : credencialesL){
+            if(registro.startsWith(usuario)){
+                String[] tokens = registro.split(",");
+                if(tokens[1].equals(Util.toHexString(Util.getSHA(clave))))
+                    return true;
+            }
+        }
+        return false;
+    }
+    
+    public static boolean checkRegistro(String usuario){
+        ArrayList<String> credencialesL = leerCredencialesRegistro();
+        for(String registro : credencialesL){
+            if(registro.startsWith(usuario))
+                return true;
+        }
+        return false;
+    }
+    
+    public static boolean validarCorreo(String correo){
+        if(correo.endsWith("@gmail.com")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
     public static void enviarMail(String correoCompr) {
         Properties propmail = new Properties();
         try(InputStream ins = new FileInputStream("mail.properties")){

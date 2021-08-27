@@ -68,35 +68,7 @@ public class Vendedor extends Usuario{
                 System.out.println("\n ¡Ud. se ha registrado con éxito!");  
             }
         }
-    }*/
-    
-    public static ArrayList<Vendedor> leerArchivo(String nomArchivo){
-        ArrayList<Vendedor> vendedores = new ArrayList<>();
-        try(Scanner sc = new Scanner(new File(nomArchivo))){
-            while(sc.hasNextLine())
-            {                
-                String linea = sc.nextLine();
-                String[] tokens = linea.split("\\|");
-                Vendedor vendedor = new Vendedor(Integer.parseInt(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5]);
-                vendedores.add(vendedor);
-            }
-        }
-        catch(Exception e){
-        }
-        return vendedores;
-    }
-    
-    public static boolean validarInfo(String correo, String clave){
-        String hashClave = Util.toHexString(Util.getSHA(clave));
-        ArrayList<Vendedor> vendedores = Vendedor.leerArchivo("vendedores.txt");
-        for(Vendedor vendedor: vendedores){
-            if(correo.equals(vendedor.getCorreo())){
-                if(hashClave.equals(vendedor.getClave()))
-                    return true;
-            }
-        }
-        return false;     
-    }
+    }*/    
     
     public static Vendedor searchByCorreo(ArrayList<Vendedor> vendedores, String correo){
         for(Vendedor vendedor: vendedores){
@@ -114,41 +86,18 @@ public class Vendedor extends Usuario{
         return null;
     }
     
-    public void ingresarVehiculo(Scanner sc){ 
-        System.out.println("Seleccione el tipo de vehículo a ingresar. \n 1.Carro \n 2.Camioneta \n 3.Motocicleta");
-        int tipoVehiculo = sc.nextInt();
-        do{
-            switch(tipoVehiculo){
-                case 1://carro
-                    Vehiculo.nextVehiculo(sc,this.id,this,"vehiculos.txt", "carro");
-                    System.out.println("Su vehículo ha sido ingresado con éxito!");
-                    break;
-                case 2://camioneta
-                    Vehiculo.nextVehiculo(sc,this.id,this,"vehiculos.txt", "camioneta");
-                    System.out.println("Su vehículo ha sido ingresado con éxito!");
-                    break;
-                case 3://motocicleta
-                    Vehiculo.nextVehiculo(sc,this.id,this,"vehiculos.txt", "motocicleta");
-                    System.out.println("Su vehículo ha sido ingresado con éxito!");
-                    break;
-                default:
-                    System.out.println("Opción no válida. Inténtelo de nuevo.");
-            }
-        }while(tipoVehiculo>3 && tipoVehiculo<1);
-    }
-    
-    public void aceptarOferta(int idOferta ,Vehiculo vehiculo){
+    public void aceptarOferta(Oferta oferta ,Vehiculo vehiculo){
         Vehiculo delVehiculo = null;
-        ArrayList<Vehiculo> vehiculosUpdate = Vehiculo.leerArchivo("vehiculos.txt");
+        ArrayList<Vehiculo> vehiculosUpdate = Vehiculo.leerArchivo();
         for(Vehiculo veh: vehiculosUpdate){
             if(veh.getPlaca().equals(vehiculo.getPlaca())){
                 delVehiculo = veh;
             }
         }
         vehiculosUpdate.remove(delVehiculo.getId()-1);
-        Vehiculo.overwriteFile("vehiculos.txt", vehiculosUpdate);
-       // Util.enviarMail(Oferta.searchByID(vehiculo.getOfertas(), idOferta).getCorreoCompr(), this.correo);
-        System.out.println("¡Oferta aceptada! \nSe enviará un correo al comprador indicando que su oferta fue aceptada.");
+        Util.enviarMail(oferta.getCorreoCompr());
+        //Mostrar por alerta un mensaje que indique que la oferta ha sido aceptada con éxito
+        //e indicar que se notificará al comprador por medio de un correo.
     }
     
     @Override
@@ -163,10 +112,7 @@ public class Vendedor extends Usuario{
             return false;
         }
         final Vendedor other = (Vendedor) obj;
-        if (!Objects.equals(this.correo, other.correo)) {
-            return false;
-        }
-        return true;
+        return (this.correo).equals(other.correo);
     }
 
     @Override

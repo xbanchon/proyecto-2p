@@ -71,40 +71,9 @@ public class Comprador extends Usuario {
         }
     }*/
     
-    public static ArrayList<Comprador> leerArchivo(String nomArchivo){
-        ArrayList<Comprador> compradores = new ArrayList<>();
-        try(Scanner sc = new Scanner(new File(nomArchivo))){
-            while(sc.hasNextLine())
-            {                
-                String linea = sc.nextLine();
-                String[] tokens = linea.split("\\|");
-                Comprador comprador = new Comprador(Integer.parseInt(tokens[0]),tokens[1],tokens[2],tokens[3],tokens[4],tokens[5]);
-                compradores.add(comprador);
-            }
-        }
-        catch(Exception e){
-        }
-        return compradores;
-    }
     
-    public static boolean validarInfo(String correo, String clave){
-        String hashClave = Util.toHexString(Util.getSHA(clave));
-        ArrayList<Comprador> compradores = Comprador.leerArchivo("compradores.txt");
-        for(Comprador comprador: compradores){
-            if(Objects.equals(comprador.correo, correo)){
-                if(Objects.equals(comprador.clave, hashClave))
-                    return true;
-            }
-        }
-        System.out.println("¡CORREO O CLAVE INCORRECTOS! Inténtelo de nuevo.");
-        return false;     
-    }
+    public void ofertar(Vehiculo vehiculo,double valor){
     
-    public void ofertar(Scanner sc,int idVehEsc){
-        System.out.println("Ingrese el precio que desea ofertar: ");
-        double precioOfertado = sc.nextDouble();
-        Oferta.nextOferta(idVehEsc, this.id, precioOfertado, "ofertas.txt");
-        System.out.println("Su oferta se ha realizado con éxito!");
     }
     
     public static Comprador searchByCorreo(ArrayList<Comprador> compradores, String correo){
@@ -135,10 +104,7 @@ public class Comprador extends Usuario {
             return false;
         }
         final Usuario other = (Usuario) obj;
-        if (!Objects.equals(this.correo, other.correo)) {
-            return false;
-        }
-        return true;
+        return (this.correo).equals(other.correo);
     }
     
     @Override
