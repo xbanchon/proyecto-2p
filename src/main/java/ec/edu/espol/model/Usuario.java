@@ -9,11 +9,13 @@ import ec.edu.espol.util.Util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
@@ -99,7 +101,19 @@ public class Usuario {
         catch(IOException e){
         }
     }
-    
+
+    public static ArrayList<Usuario> leerUsuarios(){
+        ArrayList<Usuario> usuarios = null;
+        try(ObjectInputStream oin = new ObjectInputStream(new FileInputStream("usuarios.ser"))){
+            usuarios = (ArrayList<Usuario>)oin.readObject();
+        }
+        catch(FileNotFoundException ex){}
+        catch(IOException ex){}
+        catch(ClassNotFoundException ex){}
+        finally{
+            return usuarios;
+        }
+    }
  
     @Override
     public String toString() {

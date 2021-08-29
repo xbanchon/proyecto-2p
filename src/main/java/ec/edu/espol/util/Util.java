@@ -93,14 +93,17 @@ public class Util {
     
     public static boolean validarCredenciales(String usuario, String clave){
         ArrayList<String> credencialesL = leerCredencialesRegistro();
-        for(String registro : credencialesL){
-            if(registro.startsWith(usuario)){
-                String[] tokens = registro.split(",");
-                if(tokens[1].equals(Util.toHexString(Util.getSHA(clave))))
-                    return true;
+        if(credencialesL != null){
+            for(String registro : credencialesL){
+                if(registro.startsWith(usuario)){
+                    String[] tokens = registro.split(",");
+                    if(tokens[1].equals(Util.toHexString(Util.getSHA(clave))))
+                        return true;
+                }
             }
         }
         return false;
+        
     }
     
     public static boolean checkRegistro(String usuario){

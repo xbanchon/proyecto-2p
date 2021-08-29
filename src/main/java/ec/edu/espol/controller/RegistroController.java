@@ -36,8 +36,6 @@ import javafx.scene.input.MouseEvent;
 public class RegistroController implements Initializable {
     private ArrayList<Usuario> usuarios;
     @FXML
-    private Button returnbtn;
-    @FXML
     private PasswordField passtxt;
     @FXML
     private TextField nametxt;
@@ -47,8 +45,6 @@ public class RegistroController implements Initializable {
     private TextField orgtxt;
     @FXML
     private TextField emailtxt;
-    @FXML
-    private Button signupbtn;
     @FXML
     private ComboBox<String> cbox;
 
