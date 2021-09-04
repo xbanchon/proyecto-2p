@@ -10,10 +10,13 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.math.BigInteger; 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest; 
@@ -67,22 +70,18 @@ public class Util {
         return hexString.toString(); 
     }
    
-    public static void guardarCredencialesRegistro(Usuario usuario){
-        String hashPass = Util.toHexString(Util.getSHA(usuario.getClave()));
-        try(BufferedWriter bw = new BufferedWriter( new FileWriter("credenciales.txt",true) ) ){
-            bw.write(usuario.getCorreo() + "," + hashPass);
-            bw.newLine();
+    public static void guardarCredencialesRegistro(ArrayList<String> credencialesL){
+        try(ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream("credenciales.ser") ) ){
+            out.writeObject(credencialesL);
+            out.flush();
         }
         catch(IOException ex){}
     }
     
     public static ArrayList<String> leerCredencialesRegistro(){
-        ArrayList<String> credencialesL = new ArrayList<>();
-        try(BufferedReader br = new BufferedReader(new FileReader("credenciales.txt"))){
-            String linea;
-            while((linea = br.readLine()) != null){
-                credencialesL.add(linea);
-            }
+        ArrayList<String> credencialesL = null;
+        try(ObjectInputStream oin = new ObjectInputStream(new FileInputStream("credenciales.ser"))){
+            credencialesL = (ArrayList<String>)oin.readObject();
         }
         catch(FileNotFoundException ex){}
         catch(IOException ex){}
@@ -91,11 +90,25 @@ public class Util {
         }
     }
     
-    public static boolean validarCredenciales(String usuario, String clave){
+    public static void saveNewCredentials(String email, String pass){
+        String hashPass = Util.toHexString(Util.getSHA(pass));
+        String newCredential = email + "," + hashPass;
+        ArrayList<String> credencialesL = leerCredencialesRegistro();
+        for(String linea : credencialesL){
+            if(linea.startsWith(email)){
+                credencialesL.remove(linea);
+                credencialesL.add(newCredential);
+            }
+            
+        }
+        guardarCredencialesRegistro(credencialesL);
+    }
+    
+    public static boolean validarCredenciales(String correo, String clave){
         ArrayList<String> credencialesL = leerCredencialesRegistro();
         if(credencialesL != null){
             for(String registro : credencialesL){
-                if(registro.startsWith(usuario)){
+                if(registro.startsWith(correo)){
                     String[] tokens = registro.split(",");
                     if(tokens[1].equals(Util.toHexString(Util.getSHA(clave))))
                         return true;

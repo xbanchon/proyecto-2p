@@ -281,7 +281,7 @@ public class Vehiculo {
         Vehiculo vehiculo = null;
         for(Vehiculo v: vehiculos){
             if(placa.equals(v.placa))
-                return vehiculo;
+                vehiculo = v;
         }
         return vehiculo;
     }
@@ -289,19 +289,19 @@ public class Vehiculo {
     public static Vehiculo searchByID(ArrayList<Vehiculo> vehiculos, int idVehiculo){
         Vehiculo vehiculo = null;
         for(Vehiculo v: vehiculos){
-            if(vehiculo.id == idVehiculo)
-                return vehiculo;
+            if(v.id == idVehiculo)
+                vehiculo = v;
         }
         return vehiculo;
     }
-                 
+    /*             
     public static void linkInfo(ArrayList<Vehiculo> vehiculos ,ArrayList<Vendedor> vendedores){
         for(Vehiculo vehiculo: vehiculos){
             Vendedor vendedor = Vendedor.searchByID(vendedores, vehiculo.getIdVendedor());
             vehiculo.setVendedor(vendedor);
             vendedor.getVehiculos().add(vehiculo);
         }
-    }
+    }*/
     
     public void guardarArchivo(ArrayList<Vehiculo> vehiculos){
         vehiculos.add(this);

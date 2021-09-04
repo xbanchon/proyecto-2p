@@ -84,14 +84,6 @@ public class Comprador extends Usuario {
         return null;
     }
     
-    public static Comprador searchByID(ArrayList<Comprador> compradores, int idComprador){
-        for(Comprador comprador: compradores){
-            if(comprador.id == idComprador)
-                return comprador;
-        }
-        return null;
-    }
-    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

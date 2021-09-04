@@ -78,14 +78,6 @@ public class Vendedor extends Usuario{
         return null;
     }
     
-    public static Vendedor searchByID(ArrayList<Vendedor> vendedores, int idVendedor){
-        for(Vendedor vendedor: vendedores){
-            if(vendedor.id == idVendedor)
-                return vendedor;
-        }
-        return null;
-    }
-    
     public void aceptarOferta(Oferta oferta ,Vehiculo vehiculo){
         Vehiculo delVehiculo = null;
         ArrayList<Vehiculo> vehiculosUpdate = Vehiculo.leerArchivo();

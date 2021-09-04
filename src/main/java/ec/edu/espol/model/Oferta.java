@@ -5,28 +5,25 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.util.Util;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  *
  * @author Xavier Eduardo
  */
-public class Oferta {
+public class Oferta implements Serializable{
     private int id;
     private int idComprador;
-    private Comprador comprador;
+    private transient Comprador comprador;
     private int idVehiculo;
-    private Vehiculo vehiculo;
+    private transient Vehiculo vehiculo;
     private double precioOfrecido;
     private String correoCompr;
 
@@ -93,7 +90,7 @@ public class Oferta {
     public void setCorreoCompr(String correoCompr) {
         this.correoCompr = correoCompr;
     }
-    
+    /*
     public static void linkInfo(ArrayList<Vehiculo> vehiculos, ArrayList<Oferta> ofertas, ArrayList<Comprador> compradores){
         for(Oferta oferta: ofertas){
             Vehiculo vehiculo = Vehiculo.searchByID(vehiculos, oferta.getIdVehiculo());
@@ -103,7 +100,7 @@ public class Oferta {
             oferta.setVehiculo(vehiculo);
             oferta.setComprador(comprador);
         }
-    }
+    }*/
     
     public static Oferta searchByID(ArrayList<Oferta> ofertas, int idOferta){
         for(Oferta oferta: ofertas){

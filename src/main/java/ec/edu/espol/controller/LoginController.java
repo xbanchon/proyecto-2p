@@ -5,6 +5,7 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.model.Usuario;
 import ec.edu.espol.proyecto2p.App;
 import ec.edu.espol.util.Util;
 import java.io.IOException;
@@ -15,7 +16,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -27,8 +27,6 @@ import javafx.scene.input.MouseEvent;
  */
 public class LoginController implements Initializable {
 
-    @FXML
-    private Button returnbtn;
     @FXML
     private TextField usertxt;
     @FXML
@@ -75,6 +73,10 @@ public class LoginController implements Initializable {
                 a.show();
             }
         }
+    }
+    
+    public Usuario searchUsuario(){
+        return Usuario.searchUsuarioByCorreo(usertxt.getText());  
     }
     
     class LoginException extends Exception{

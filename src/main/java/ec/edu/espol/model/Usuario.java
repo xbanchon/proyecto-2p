@@ -8,7 +8,6 @@ package ec.edu.espol.model;
 import ec.edu.espol.util.Util;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,17 +16,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
 
 /**
  *
  * @author Xavier Eduardo
  */
-public class Usuario {
+public class Usuario implements Serializable{
     protected int id;
     protected String nombres;
     protected String apellidos;
@@ -92,7 +88,8 @@ public class Usuario {
         this.clave = clave;
     }
     
-    public static void guardarUsuarios(ArrayList<Usuario> usuarios){
+    public void guardarUsuarios(ArrayList<Usuario> usuarios){
+        usuarios.add(this);
         try(ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("usuarios.ser")))//Nombre de archivo provisional
         {
             out.writeObject(usuarios);
@@ -114,7 +111,73 @@ public class Usuario {
             return usuarios;
         }
     }
- 
+    
+    public static Usuario searchByID(ArrayList<Usuario> usuarios, int idUsuario){
+        for(Usuario usuario: usuarios){
+            if(usuario.id == idUsuario)
+                return usuario;
+        }
+        return null;
+    }
+    
+    public static Usuario searchUsuarioByCorreo(String correo){
+        Usuario usuario = null;
+        for(Usuario user: leerUsuarios()){
+            if( (user.correo).equals(correo) )
+                usuario = user;
+        }
+        return usuario;
+    }
+    
+    public String getUserRole(){
+        if(this instanceof Comprador)
+            return "Comprador";
+        else if(this instanceof Vendedor)
+            return "Vendedor";
+        else
+            return "Comprador y Vendedor";
+    }
+    
+    public void changeUserRole(String newRole) {
+        if(!this.getUserRole().equals(newRole)){
+            ArrayList<Usuario> users = leerUsuarios();
+            for(Usuario usuario: users){
+                if(newRole.equals("Comprador")){
+                    usuario = (Comprador) this;
+                }
+                else if(newRole.equals("Vendedor")){
+                    usuario = (Vendedor) this;
+                }
+                else{
+                    
+                }
+            }
+        }
+        
+    }
+    
+    public ArrayList<Oferta> recuperarOfertasComprador(){
+        ArrayList<Oferta> ofertas = Oferta.leerArchivo();
+        ArrayList<Oferta> compradorOfertas = new ArrayList<>();
+        for(Oferta oferta : ofertas){
+            if(oferta.getIdComprador() == this.id){
+                compradorOfertas.add(oferta);
+            }
+        }
+        return compradorOfertas;
+    }
+    
+    public ArrayList<Vehiculo> recuperarVehiculosVendedor(){
+        ArrayList<Vehiculo> vehiculos = Vehiculo.leerArchivo();
+        ArrayList<Vehiculo> vendedorVehiculos = new ArrayList<>();
+        for(Vehiculo vehiculo : vehiculos){
+            if(vehiculo.getIdVendedor() == this.id){
+                vendedorVehiculos.add(vehiculo);
+            }
+        }
+        return vendedorVehiculos;
+    }
+    
     @Override
     public String toString() {
         return "Usuario{" + "nombres=" + nombres + ", apellidos=" + apellidos + ", organizacion=" + organizacion + ", correo=" + correo + ", clave=" + clave + '}';

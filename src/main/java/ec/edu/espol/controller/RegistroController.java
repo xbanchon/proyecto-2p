@@ -81,8 +81,7 @@ public class RegistroController implements Initializable {
             //Crear nuevo usuario
             Usuario usuario = crearNuevoUsuario(cbox.getValue());
             //Añadirlo a una lista de usuarios y mandarla a serializar
-            usuarios.add(usuario);
-            Usuario.guardarUsuarios(usuarios);
+            usuario.guardarUsuarios(usuarios);
             //Regresar a la pantalla de inicio
             try {
                 FXMLLoader fxmlLoader = App.loadFXMLLoader("inicio");

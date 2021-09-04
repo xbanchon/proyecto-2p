@@ -5,9 +5,21 @@
  */
 package ec.edu.espol.controller;
 
+import ec.edu.espol.model.Comprador;
+import ec.edu.espol.model.Usuario;
+import ec.edu.espol.model.Vendedor;
+import ec.edu.espol.proyecto2p.App;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -15,13 +27,81 @@ import javafx.fxml.Initializable;
  * @author Xavier Eduardo
  */
 public class PerfilController implements Initializable {
+    private Usuario activeUser;
+    @FXML
+    private Text nametxt;
+    @FXML
+    private Text lastnametxt;
+    @FXML
+    private Text orgtxt;
+    @FXML
+    private Text emailtxt;
+    @FXML
+    private ComboBox<String> roleCbox;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        try {
+            LoginController lc = App.loadFXMLLoader("login").getController();
+            Usuario user = lc.searchUsuario();
+            activeUser = user;
+            nametxt.setText(user.getNombres());
+            lastnametxt.setText(user.getApellidos());
+            orgtxt.setText(user.getOrganizacion());
+            emailtxt.setText(user.getCorreo());
+            setComboBox(user);
+            
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+            a.show();
+        }
     }    
+
+    @FXML
+    private void saveChanges(MouseEvent event) {
+        String role = roleCbox.getValue();
+        activeUser.changeUserRole(role);
+        Alert a = new Alert(Alert.AlertType.INFORMATION,"Se han guardado los cambios.");
+        a.show();
+    }
+
+    @FXML
+    private void goBack(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = App.loadFXMLLoader("usermenu");
+            App.setRoot(fxmlLoader);
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+            a.show();
+        }
+    }
+
+    @FXML
+    private void changePassword(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = App.loadFXMLLoader("resetpass");
+            App.setRoot(fxmlLoader);
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+            a.show();
+        }
+    }
+    private void setComboBox(Usuario user){
+        if(user instanceof Comprador){
+            roleCbox.setValue("Comprador");
+            roleCbox.setItems(FXCollections.observableArrayList("Vendedor","Comprador y Vendedor"));
+        }
+        else if(user instanceof Vendedor){
+            roleCbox.setValue("Vendedor");
+            roleCbox.setItems(FXCollections.observableArrayList("Comprador","Comprador y Vendedor"));
+        }
+        else{
+            roleCbox.setValue("Comprador y Vendedor");
+            roleCbox.setItems(FXCollections.observableArrayList("Comprador","Vendedor"));
+        }
+    }
     
 }
