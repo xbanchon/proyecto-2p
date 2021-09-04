@@ -30,6 +30,7 @@ public class Usuario implements Serializable{
     protected String organizacion;
     protected String correo;
     protected String clave;
+    private String rol;
 
     public Usuario(int id, String nombres, String apellidos, String organizacion, String correo, String clave) {
         this.id = id;
@@ -38,6 +39,12 @@ public class Usuario implements Serializable{
         this.organizacion = organizacion;
         this.correo = correo;
         this.clave = clave;
+        if(this instanceof Comprador)
+            this.rol = "Comprador";
+        else if(this instanceof Vendedor)
+            this.rol = "Vendedor";
+        else
+            this.rol = "Comprador y Vendedor";
     }
 
     public int getId() {
@@ -63,6 +70,10 @@ public class Usuario implements Serializable{
     public String getClave() {
         return clave;
     }
+    
+    public String getUserRole(){
+        return rol;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -86,6 +97,27 @@ public class Usuario implements Serializable{
 
     public void setClave(String clave) {
         this.clave = clave;
+    }
+    
+    public void setUserRole(String rol){
+        this.rol = rol;
+    }
+    
+    public void changeUserRole(String newRole) {
+        if(!this.getUserRole().equals(newRole)){
+            ArrayList<Usuario> users = leerUsuarios();
+            for(Usuario usuario: users){
+                if(this.equals(usuario)){
+                    if(newRole.equals("Comprador"))
+                        usuario.setUserRole("Comprador");
+                    else if(newRole.equals("Vendedor"))
+                        usuario.setUserRole("Vendedor");
+                    else
+                        usuario.setUserRole("Comprador y Vendedor");  
+                }
+            }
+            guardarUsuarios(users);
+        } 
     }
     
     public void guardarUsuarios(ArrayList<Usuario> usuarios){
@@ -127,55 +159,6 @@ public class Usuario implements Serializable{
                 usuario = user;
         }
         return usuario;
-    }
-    
-    public String getUserRole(){
-        if(this instanceof Comprador)
-            return "Comprador";
-        else if(this instanceof Vendedor)
-            return "Vendedor";
-        else
-            return "Comprador y Vendedor";
-    }
-    
-    public void changeUserRole(String newRole) {
-        if(!this.getUserRole().equals(newRole)){
-            ArrayList<Usuario> users = leerUsuarios();
-            for(Usuario usuario: users){
-                if(newRole.equals("Comprador")){
-                    usuario = (Comprador) this;
-                }
-                else if(newRole.equals("Vendedor")){
-                    usuario = (Vendedor) this;
-                }
-                else{
-                    
-                }
-            }
-        }
-        
-    }
-    
-    public ArrayList<Oferta> recuperarOfertasComprador(){
-        ArrayList<Oferta> ofertas = Oferta.leerArchivo();
-        ArrayList<Oferta> compradorOfertas = new ArrayList<>();
-        for(Oferta oferta : ofertas){
-            if(oferta.getIdComprador() == this.id){
-                compradorOfertas.add(oferta);
-            }
-        }
-        return compradorOfertas;
-    }
-    
-    public ArrayList<Vehiculo> recuperarVehiculosVendedor(){
-        ArrayList<Vehiculo> vehiculos = Vehiculo.leerArchivo();
-        ArrayList<Vehiculo> vendedorVehiculos = new ArrayList<>();
-        for(Vehiculo vehiculo : vehiculos){
-            if(vehiculo.getIdVendedor() == this.id){
-                vendedorVehiculos.add(vehiculo);
-            }
-        }
-        return vendedorVehiculos;
     }
     
     @Override

@@ -20,19 +20,17 @@ import java.util.ArrayList;
  */
 public class Oferta implements Serializable{
     private int id;
-    private int idComprador;
+    private String idComprador;
     private transient Comprador comprador;
     private int idVehiculo;
     private transient Vehiculo vehiculo;
     private double precioOfrecido;
-    private String correoCompr;
 
-    public Oferta(int id, int idComprador, int idVehiculo, double precioOfrecido, String correoCompr) {
+    public Oferta(int id, String idComprador, int idVehiculo, double precioOfrecido) {
         this.id = id;
         this.idComprador = idComprador;
         this.idVehiculo = idVehiculo;
         this.precioOfrecido = precioOfrecido;
-        this.correoCompr = correoCompr;
     }
 
     public int getId() {
@@ -43,11 +41,11 @@ public class Oferta implements Serializable{
         this.id = id;
     }
 
-    public int getIdComprador() {
+    public String getIdComprador() {
         return idComprador;
     }
 
-    public void setIdComprador(int idComprador) {
+    public void setIdComprador(String idComprador) {
         this.idComprador = idComprador;
     }
 
@@ -83,13 +81,6 @@ public class Oferta implements Serializable{
         this.precioOfrecido = precioOfrecido;
     }
 
-    public String getCorreoCompr() {
-        return correoCompr;
-    }
-
-    public void setCorreoCompr(String correoCompr) {
-        this.correoCompr = correoCompr;
-    }
     /*
     public static void linkInfo(ArrayList<Vehiculo> vehiculos, ArrayList<Oferta> ofertas, ArrayList<Comprador> compradores){
         for(Oferta oferta: ofertas){
@@ -108,6 +99,17 @@ public class Oferta implements Serializable{
                 return oferta;
         }
         return null;
+    }
+    
+     public static ArrayList<Oferta> recuperarOfertasComprador(String idComprador){
+        ArrayList<Oferta> ofertas = leerArchivo();
+        ArrayList<Oferta> compradorOfertas = new ArrayList<>();
+        for(Oferta oferta : ofertas){
+            if(oferta.getIdComprador().equals(idComprador)){
+                compradorOfertas.add(oferta);
+            }
+        }
+        return compradorOfertas;
     }
     
     public void guardarArchivo(ArrayList<Oferta> ofertas){
@@ -149,7 +151,7 @@ public class Oferta implements Serializable{
 
     @Override
     public String toString() {
-        return "Correo del comprador: " + correoCompr + "\n Precio Ofertado: " + precioOfrecido;
+        return "Correo del comprador: " + idComprador + "\n Precio Ofertado: " + precioOfrecido;
     }
     
 }

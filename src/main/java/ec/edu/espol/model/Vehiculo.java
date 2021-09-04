@@ -5,18 +5,13 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.util.Util;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Scanner;
 
 /**
  *
@@ -33,7 +28,7 @@ public class Vehiculo {
     private String color;
     private String tipoCombustible;
     private double precio;
-    private int idVendedor;
+    private String idVendedor;
     private Vendedor vendedor;
     private String tipoVehiculo;
     private String vidrios;//no apica para motos
@@ -42,7 +37,7 @@ public class Vehiculo {
     private ArrayList<Oferta> ofertas;
     
     public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int anio, double recorrido, 
-            String color, String tipoCombustible, double precio, int idVendedor, String vidrios, String transmision){//constructor carro
+            String color, String tipoCombustible, double precio, String idVendedor, String vidrios, String transmision){//constructor carro
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -61,7 +56,7 @@ public class Vehiculo {
     }
     
     public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int anio, double recorrido, 
-            String color, String tipoCombustible, double precio, int idVendedor, String vidrios, String transmision, String traccion){//constructor camioneta
+            String color, String tipoCombustible, double precio, String idVendedor, String vidrios, String transmision, String traccion){//constructor camioneta
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -81,7 +76,7 @@ public class Vehiculo {
     }
     
     public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int anio, double recorrido, 
-            String color, String tipoCombustible, double precio, int idVendedor){
+            String color, String tipoCombustible, double precio, String idVendedor){
         this.id = id;
         this.placa = placa;
         this.marca = marca;
@@ -176,11 +171,11 @@ public class Vehiculo {
         this.precio = precio;
     }
 
-    public int getIdVendedor() {
+    public String getIdVendedor() {
         return idVendedor;
     }
 
-    public void setIdVendedor(int idVendedor) {
+    public void setIdVendedor(String idVendedor) {
         this.idVendedor = idVendedor;
     }
 
@@ -268,10 +263,10 @@ public class Vehiculo {
         return vehFiltr;
     }
     
-    public static ArrayList<Vehiculo> searchByIDVendedor(ArrayList<Vehiculo> vehiculos, Vendedor vendedor){
+    public static ArrayList<Vehiculo> searchByIDVendedor(ArrayList<Vehiculo> vehiculos, String idVend){
         ArrayList<Vehiculo> vehFiltr = new ArrayList<>();
         for(Vehiculo vehiculo: vehiculos){
-            if(vehiculo.idVendedor == vendedor.getId())
+            if(vehiculo.idVendedor.equals(idVend))
                 vehFiltr.add(vehiculo);
         }
         return vehFiltr;
@@ -302,6 +297,17 @@ public class Vehiculo {
             vendedor.getVehiculos().add(vehiculo);
         }
     }*/
+    
+    public static ArrayList<Vehiculo> recuperarVehiculosVendedor(String idVendedor){
+        ArrayList<Vehiculo> vehiculos = leerArchivo();
+        ArrayList<Vehiculo> vendedorVehiculos = new ArrayList<>();
+        for(Vehiculo vehiculo : vehiculos){
+            if(vehiculo.getIdVendedor().equals(idVendedor)){
+                vendedorVehiculos.add(vehiculo);
+            }
+        }
+        return vendedorVehiculos;
+    }
     
     public void guardarArchivo(ArrayList<Vehiculo> vehiculos){
         vehiculos.add(this);

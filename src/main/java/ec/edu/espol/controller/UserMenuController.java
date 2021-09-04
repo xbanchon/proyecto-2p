@@ -44,18 +44,18 @@ public class UserMenuController implements Initializable {
             //Dependiendo de su instancia mostrar los botones de comprar y vender.
             //Añadirle el comportamiento onMOuseClicked a cada botón.
             //Cargar las escenas respectivas.
-            if(user instanceof Comprador){
-                addButton( createButton("" , "Comprar un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
-            }
-            else if(user instanceof Vendedor){  
-                addButton( createButton("" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
-                addButton( createButton("" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
-            }
-            else{
-                addButton( createButton("" , "Comprar un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
-                addButton( createButton("" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
-                addButton( createButton("" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
-            }  
+//            if(user instanceof Comprador){
+//                addButton( createButton("" , "Comprar un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
+//            }
+//            else if(user instanceof Vendedor){  
+//                addButton( createButton("" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
+//                addButton( createButton("" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
+//            }
+//            else{
+//                addButton( createButton("" , "Comprar un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
+//                addButton( createButton("" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
+//                addButton( createButton("" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
+//            }  
         } catch (IOException ex) {}
     }    
 

@@ -87,7 +87,7 @@ public class Vendedor extends Usuario{
             }
         }
         vehiculosUpdate.remove(delVehiculo.getId()-1);
-        Util.enviarMail(oferta.getCorreoCompr());
+        Util.enviarMail(oferta.getIdComprador());
         //Mostrar por alerta un mensaje que indique que la oferta ha sido aceptada con éxito
         //e indicar que se notificará al comprador por medio de un correo.
     }
