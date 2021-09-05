@@ -15,10 +15,12 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 /**
  * FXML Controller class
@@ -29,6 +31,8 @@ public class UserMenuController implements Initializable {
     private Usuario activeUser;
     @FXML
     private HBox hpane;
+    @FXML
+    private Text useridtxt;
 
     /**
      * Initializes the controller class.
@@ -41,6 +45,8 @@ public class UserMenuController implements Initializable {
             //Dependiendo de su instancia mostrar los botones de comprar y vender.
             //Añadirle el comportamiento onMOuseClicked a cada botón.
             //Cargar las escenas respectivas.
+            
+            activeUser = Usuario.searchUsuarioByCorreo(useridtxt.getText());
             if(activeUser instanceof Comprador){
                 addButton( createButton("ofertarvehiculo" , "Ofertar por un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
             }
@@ -53,13 +59,22 @@ public class UserMenuController implements Initializable {
                 addButton( createButton("inicio" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
                 addButton( createButton("inicio" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
             }  
+            
     }    
 
     @FXML
     private void verPerfil(MouseEvent event) {
+        activeUser = Usuario.searchUsuarioByCorreo(useridtxt.getText());
         try{
             FXMLLoader fxmlloader = App.loadFXMLLoader("perfil");
-            App.setRoot(fxmlloader);
+            Parent root = fxmlloader.load();
+            PerfilController pc = fxmlloader.getController();
+            pc.setName(activeUser.getNombres());
+            pc.setLastName(activeUser.getApellidos());
+            pc.setOrganization(activeUser.getOrganizacion());
+            pc.setEmail(activeUser.getCorreo());
+            pc.setComboBox();
+            App.setRoot(root);
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
             a.show();
@@ -80,7 +95,7 @@ public class UserMenuController implements Initializable {
         hpane.getChildren().add(button);
     }
     
-    public void transferActiveUser(Usuario user){
-        activeUser = user;
+    public void transferActiveUser(String userID){
+        useridtxt.setText(userID);
     }
 }

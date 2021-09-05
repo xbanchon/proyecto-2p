@@ -13,9 +13,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -101,5 +103,16 @@ public class ResetPassController implements Initializable {
         button.setAlignment(Pos.CENTER);
         actionButton(button,newPass.getText(),passConf.getText());
         gridPane.add(button, 0, 2);
+    }
+
+    @FXML
+    private void goBack(MouseEvent event) {
+        try{
+            FXMLLoader fxmlloader = App.loadFXMLLoader("perfil");
+            App.setRoot(fxmlloader);
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+            a.show();
+        }
     }
 }

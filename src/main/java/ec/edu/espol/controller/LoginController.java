@@ -29,7 +29,6 @@ import javafx.scene.input.MouseEvent;
  * @author Xavier Eduardo
  */
 public class LoginController implements Initializable {
-    private String activeUser;
     @FXML
     private TextField usertxt;
     @FXML
@@ -59,16 +58,15 @@ public class LoginController implements Initializable {
         String user = usertxt.getText();
         String pass = passtxt.getText();
         if(Util.validarCredenciales(user, pass)){
-            activeUser = user;
             try {
                 FXMLLoader fxmlLoader = App.loadFXMLLoader("usermenu");
-                App.setRoot(fxmlLoader);
+                Parent root = fxmlLoader.load();
                 UserMenuController umc = fxmlLoader.getController();
-                umc.transferActiveUser(Usuario.searchUsuarioByCorreo(user));
+                umc.transferActiveUser(user);
+                App.setRoot(root);   
             } catch (IOException ex) {
                 Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
-                a.show();
-               
+                a.show(); 
             }
         }
         else{

@@ -16,6 +16,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
@@ -44,20 +45,6 @@ public class PerfilController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            LoginController lc = App.loadFXMLLoader("login").getController();
-//            Usuario user = lc.searchUsuario();
-//            activeUser = user;
-//            nametxt.setText(user.getNombres());
-//            lastnametxt.setText(user.getApellidos());
-//            orgtxt.setText(user.getOrganizacion());
-//            emailtxt.setText(user.getCorreo());
-//            setComboBox(user);
-            
-        } catch (IOException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
-            a.show();
-        }
     }    
 
     @FXML
@@ -72,7 +59,10 @@ public class PerfilController implements Initializable {
     private void goBack(MouseEvent event) {
         try {
             FXMLLoader fxmlLoader = App.loadFXMLLoader("usermenu");
-            App.setRoot(fxmlLoader);
+            Parent root = fxmlLoader.load();
+            UserMenuController umc = fxmlLoader.getController();
+            umc.transferActiveUser(emailtxt.getText());
+            App.setRoot(root);
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
             a.show();
@@ -89,12 +79,13 @@ public class PerfilController implements Initializable {
             a.show();
         }
     }
-    private void setComboBox(Usuario user){
-        if(user instanceof Comprador){
+    public void setComboBox(){
+        activeUser = Usuario.searchUsuarioByCorreo(emailtxt.getText());
+        if(activeUser instanceof Comprador){
             roleCbox.setValue("Comprador");
             roleCbox.setItems(FXCollections.observableArrayList("Vendedor","Comprador y Vendedor"));
         }
-        else if(user instanceof Vendedor){
+        else if(activeUser instanceof Vendedor){
             roleCbox.setValue("Vendedor");
             roleCbox.setItems(FXCollections.observableArrayList("Comprador","Comprador y Vendedor"));
         }
@@ -104,4 +95,19 @@ public class PerfilController implements Initializable {
         }
     }
     
+    public void setName(String name){
+        nametxt.setText(name);
+    }
+    
+    public void setLastName(String lastName){
+        lastnametxt.setText(lastName);
+    }
+    
+    public void setOrganization(String org){
+        orgtxt.setText(org);
+    }
+    
+    public void setEmail(String email){
+        emailtxt.setText(email);
+    }  
 }

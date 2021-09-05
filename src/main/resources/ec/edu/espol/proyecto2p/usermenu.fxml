@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.UserMenuController">
-   <top>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BIENVENIDO!" BorderPane.alignment="BOTTOM_CENTER">
-         <BorderPane.margin>
-            <Insets top="25.0" />
-         </BorderPane.margin>
-      </Text>
-   </top>
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -33,4 +25,12 @@
          </children>
       </GridPane>
    </center>
+   <top>
+      <VBox alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="75.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="BIENVENIDO!" />
+            <Text fx:id="useridtxt" strokeType="OUTSIDE" strokeWidth="0.0" />
+         </children>
+      </VBox>
+   </top>
 </BorderPane>

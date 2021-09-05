@@ -8,7 +8,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <BorderPane fx:id="bpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.controller.ResetPassController">
    <top>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="CAMBIO DE CONTRASEÑA" BorderPane.alignment="BOTTOM_CENTER">
@@ -32,4 +31,11 @@
          </padding>
       </HBox>
    </center>
+   <bottom>
+      <Button mnemonicParsing="false" onMouseClicked="#goBack" text="Regresar" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets bottom="25.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
 </BorderPane>

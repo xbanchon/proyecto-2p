@@ -12,7 +12,7 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
-
+    
     private static Scene scene;
 
     @Override
@@ -30,8 +30,12 @@ public class App extends Application {
         Parent root = fxmlLoader.load();
         scene.setRoot(root);
     }
+    
+    public static void setRoot(Parent root){
+        scene.setRoot(root);
+    } 
 
-    private static Parent loadFXML(String fxml) throws IOException {
+    public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
