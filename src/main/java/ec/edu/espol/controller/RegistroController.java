@@ -22,7 +22,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -53,6 +52,7 @@ public class RegistroController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        usuarios = new ArrayList<>();
         ArrayList<String> opciones = new ArrayList<>();
         String[] opcArray = new String[]{"Comprador","Vendedor","Comprador y Vendedor"};
         Collections.addAll(opciones, opcArray);
@@ -107,7 +107,7 @@ public class RegistroController implements Initializable {
                 a.show();
             }
         }
-        else if(Util.validarCorreo(emailtxt.getText())){
+        else if(!Util.validarCorreo(emailtxt.getText())){
             try{
                 throw new InputMismatchException("Ingrese un correo de Gmail.");
             }
