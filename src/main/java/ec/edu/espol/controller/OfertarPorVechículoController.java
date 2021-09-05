@@ -34,9 +34,6 @@ public class OfertarPorVechículoController implements Initializable {
     private ArrayList<Vehiculo> vehiculos;
     @FXML
     private ComboBox<String> VCBox;
-    private TextField TRecorrrido;
-    private TextField TAnio;
-    private TextField TPrecio;
     @FXML
     private Button BuscarButton;
     @FXML
@@ -87,7 +84,7 @@ public class OfertarPorVechículoController implements Initializable {
     @FXML
     private void buscarVehiculos(MouseEvent event) {
         ObservableList<InfoVehiculo> vehiculosOB = FXCollections.observableArrayList();
-        if (VCBox.getValue()==null && TRecorrrido.getText()==null && TAnio.getText()==null && TPrecio.getText()==null){
+        if (VCBox.getValue()==null && TRecorridomax.getText()==null && TAniomax.getText()==null && TPreciomax.getText()==null){
             InfoVehiculo infovehi = new InfoVehiculo();
             ArrayList<InfoVehiculo> vehiMostrados = new ArrayList<InfoVehiculo>();
             try{
@@ -106,7 +103,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()!=null && TRecorrrido.getText()==null && TAnio.getText()==null && TPrecio.getText()==null){
+        else if (VCBox.getValue()!=null && TRecorridomax.getText()==null && TAniomax.getText()==null && TPreciomax.getText()==null){
             ArrayList<Vehiculo> vehiculosPorTipo = Vehiculo.searchByTipoVehiculo(vehiculos, VCBox.getValue());
             InfoVehiculo infovehi = new InfoVehiculo();
             ArrayList<InfoVehiculo> vehiMostrados = new ArrayList<InfoVehiculo>();
@@ -126,7 +123,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()==null && TRecorrrido.getText()!=null && TAnio.getText()==null && TPrecio.getText()==null){
+        else if (VCBox.getValue()==null && TRecorridomax.getText()!=null && TAniomax.getText()==null && TPreciomax.getText()==null){
             ArrayList<Vehiculo> vehiculosPorRecorrido = Vehiculo.searchByRecorrido(vehiculos, Double.parseDouble(TRecorridomax.getText()), Double.parseDouble(TRecorridomin.getText()));
             InfoVehiculo infovehi = new InfoVehiculo();
             ArrayList<InfoVehiculo> vehiMostrados = new ArrayList<InfoVehiculo>();
@@ -146,7 +143,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()==null && TRecorrrido.getText()==null && TAnio.getText()!=null && TPrecio.getText()==null){
+        else if (VCBox.getValue()==null && TRecorridomax.getText()==null && TAniomax.getText()!=null && TPreciomax.getText()==null){
             ArrayList<Vehiculo> vehiculosPorAnio = Vehiculo.searchByYear(vehiculos, Integer.parseInt(TAniomax.getText()), Integer.parseInt(TAniomin.getText()));
             InfoVehiculo infovehi = new InfoVehiculo();
             ArrayList<InfoVehiculo> vehiMostrados = new ArrayList<InfoVehiculo>();
@@ -166,7 +163,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()==null && TRecorrrido.getText()==null && TAnio.getText()==null && TPrecio.getText()!=null){
+        else if (VCBox.getValue()==null && TRecorridomax.getText()==null && TAniomax.getText()==null && TPreciomax.getText()!=null){
             ArrayList<Vehiculo> vehiculosPorPrecio = Vehiculo.searchByPrecio(vehiculos, Double.parseDouble(TPreciomax.getText()), Double.parseDouble(TPreciomin.getText()));
             InfoVehiculo infovehi = new InfoVehiculo();
             ArrayList<InfoVehiculo> vehiMostrados = new ArrayList<InfoVehiculo>();
@@ -186,7 +183,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()!=null && TRecorrrido.getText()!=null && TAnio.getText()==null && TPrecio.getText()==null){
+        else if (VCBox.getValue()!=null && TRecorridomax.getText()!=null && TAniomax.getText()==null && TPreciomax.getText()==null){
             ArrayList<Vehiculo> vehiculosPorTipo = Vehiculo.searchByTipoVehiculo(vehiculos, VCBox.getValue());
             ArrayList<Vehiculo> vehiculosPorRecorrido = Vehiculo.searchByRecorrido(vehiculos, Double.parseDouble(TRecorridomax.getText()), Double.parseDouble(TRecorridomin.getText()));
             ArrayList<Vehiculo> listCopy1 = new ArrayList<Vehiculo>(vehiculosPorRecorrido);
@@ -209,7 +206,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()!=null && TRecorrrido.getText()==null && TAnio.getText()!=null && TPrecio.getText()==null){
+        else if (VCBox.getValue()!=null && TRecorridomax.getText()==null && TAniomax.getText()!=null && TPreciomax.getText()==null){
             ArrayList<Vehiculo> vehiculosPorTipo = Vehiculo.searchByTipoVehiculo(vehiculos, VCBox.getValue());
             ArrayList<Vehiculo> vehiculosPorAnio = Vehiculo.searchByYear(vehiculos, Integer.parseInt(TAniomax.getText()), Integer.parseInt(TAniomin.getText()));
             ArrayList<Vehiculo> listCopy1 = new ArrayList<Vehiculo>(vehiculosPorAnio);
@@ -232,7 +229,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()!=null && TRecorrrido.getText()==null && TAnio.getText()==null && TPrecio.getText()!=null){
+        else if (VCBox.getValue()!=null && TRecorridomax.getText()==null && TAniomax.getText()==null && TPreciomax.getText()!=null){
             ArrayList<Vehiculo> vehiculosPorTipo = Vehiculo.searchByTipoVehiculo(vehiculos, VCBox.getValue());
             ArrayList<Vehiculo> vehiculosPorPrecio = Vehiculo.searchByPrecio(vehiculos, Double.parseDouble(TPreciomax.getText()), Double.parseDouble(TPreciomin.getText()));
             ArrayList<Vehiculo> listCopy1 = new ArrayList<Vehiculo>(vehiculosPorPrecio);
@@ -255,7 +252,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()==null && TRecorrrido.getText()!=null && TAnio.getText()!=null && TPrecio.getText()==null){
+        else if (VCBox.getValue()==null && TRecorridomax.getText()!=null && TAniomax.getText()!=null && TPreciomax.getText()==null){
             ArrayList<Vehiculo> vehiculosPorRecorrido = Vehiculo.searchByRecorrido(vehiculos, Double.parseDouble(TRecorridomax.getText()), Double.parseDouble(TRecorridomin.getText()));
             ArrayList<Vehiculo> vehiculosPorAnio = Vehiculo.searchByYear(vehiculos, Integer.parseInt(TAniomax.getText()), Integer.parseInt(TAniomin.getText()));
             ArrayList<Vehiculo> listCopy1 = new ArrayList<Vehiculo>(vehiculosPorRecorrido);
@@ -278,7 +275,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()==null && TRecorrrido.getText()==null && TAnio.getText()!=null && TPrecio.getText()!=null){
+        else if (VCBox.getValue()==null && TRecorridomax.getText()==null && TAniomax.getText()!=null && TPreciomax.getText()!=null){
             ArrayList<Vehiculo> vehiculosPorPrecio = Vehiculo.searchByPrecio(vehiculos, Double.parseDouble(TPreciomax.getText()), Double.parseDouble(TPreciomin.getText()));
             ArrayList<Vehiculo> vehiculosPorAnio = Vehiculo.searchByYear(vehiculos, Integer.parseInt(TAniomax.getText()), Integer.parseInt(TAniomin.getText()));
             ArrayList<Vehiculo> listCopy1 = new ArrayList<Vehiculo>(vehiculosPorPrecio);
@@ -301,7 +298,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()==null && TRecorrrido.getText()!=null && TAnio.getText()==null && TPrecio.getText()!=null){
+        else if (VCBox.getValue()==null && TRecorridomax.getText()!=null && TAniomax.getText()==null && TPreciomax.getText()!=null){
             ArrayList<Vehiculo> vehiculosPorRecorrido = Vehiculo.searchByRecorrido(vehiculos, Double.parseDouble(TRecorridomax.getText()), Double.parseDouble(TRecorridomin.getText()));
             ArrayList<Vehiculo> vehiculosPorPrecio = Vehiculo.searchByPrecio(vehiculos, Double.parseDouble(TPreciomax.getText()), Double.parseDouble(TPreciomin.getText()));
             ArrayList<Vehiculo> listCopy1 = new ArrayList<Vehiculo>(vehiculosPorRecorrido);
@@ -324,7 +321,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()!=null && TRecorrrido.getText()!=null && TAnio.getText()!=null && TPrecio.getText()==null){
+        else if (VCBox.getValue()!=null && TRecorridomax.getText()!=null && TAniomax.getText()!=null && TPreciomax.getText()==null){
             ArrayList<Vehiculo> vehiculosPorTipo = Vehiculo.searchByTipoVehiculo(vehiculos, VCBox.getValue());
             ArrayList<Vehiculo> vehiculosPorRecorrido = Vehiculo.searchByRecorrido(vehiculos, Double.parseDouble(TRecorridomax.getText()), Double.parseDouble(TRecorridomin.getText()));
             ArrayList<Vehiculo> vehiculosPorAnio = Vehiculo.searchByYear(vehiculos, Integer.parseInt(TAniomax.getText()), Integer.parseInt(TAniomin.getText()));
@@ -349,7 +346,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()!=null && TRecorrrido.getText()!=null && TAnio.getText()==null && TPrecio.getText()!=null){
+        else if (VCBox.getValue()!=null && TRecorridomax.getText()!=null && TAniomax.getText()==null && TPreciomax.getText()!=null){
             ArrayList<Vehiculo> vehiculosPorTipo = Vehiculo.searchByTipoVehiculo(vehiculos, VCBox.getValue());
             ArrayList<Vehiculo> vehiculosPorRecorrido = Vehiculo.searchByRecorrido(vehiculos, Double.parseDouble(TRecorridomax.getText()), Double.parseDouble(TRecorridomin.getText()));
             ArrayList<Vehiculo> vehiculosPorPrecio = Vehiculo.searchByPrecio(vehiculos, Double.parseDouble(TPreciomax.getText()), Double.parseDouble(TPreciomin.getText()));
@@ -374,7 +371,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()!=null && TRecorrrido.getText()==null && TAnio.getText()!=null && TPrecio.getText()!=null){
+        else if (VCBox.getValue()!=null && TRecorridomax.getText()==null && TAniomax.getText()!=null && TPreciomax.getText()!=null){
             ArrayList<Vehiculo> vehiculosPorTipo = Vehiculo.searchByTipoVehiculo(vehiculos, VCBox.getValue());
             ArrayList<Vehiculo> vehiculosPorAnio = Vehiculo.searchByYear(vehiculos, Integer.parseInt(TAniomax.getText()), Integer.parseInt(TAniomin.getText()));
             ArrayList<Vehiculo> vehiculosPorPrecio = Vehiculo.searchByPrecio(vehiculos, Double.parseDouble(TPreciomax.getText()), Double.parseDouble(TPreciomin.getText()));
@@ -399,7 +396,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()==null && TRecorrrido.getText()!=null && TAnio.getText()!=null && TPrecio.getText()!=null){
+        else if (VCBox.getValue()==null && TRecorridomax.getText()!=null && TAniomax.getText()!=null && TPreciomax.getText()!=null){
             ArrayList<Vehiculo> vehiculosPorAnio = Vehiculo.searchByYear(vehiculos, Integer.parseInt(TAniomax.getText()), Integer.parseInt(TAniomin.getText()));
             ArrayList<Vehiculo> vehiculosPorRecorrido = Vehiculo.searchByRecorrido(vehiculos, Double.parseDouble(TRecorridomax.getText()), Double.parseDouble(TRecorridomin.getText()));
             ArrayList<Vehiculo> vehiculosPorPrecio = Vehiculo.searchByPrecio(vehiculos, Double.parseDouble(TPreciomax.getText()), Double.parseDouble(TPreciomin.getText()));
@@ -424,7 +421,7 @@ public class OfertarPorVechículoController implements Initializable {
             vehiculosOB = FXCollections.observableArrayList(vehiMostrados);
             vehiculosTable.setItems(vehiculosOB);
         }
-        else if (VCBox.getValue()!=null && TRecorrrido.getText()!=null && TAnio.getText()!=null && TPrecio.getText()!=null){
+        else if (VCBox.getValue()!=null && TRecorridomax.getText()!=null && TAniomax.getText()!=null && TPreciomax.getText()!=null){
             ArrayList<Vehiculo> vehiculosPorTipo = Vehiculo.searchByTipoVehiculo(vehiculos, VCBox.getValue());
             ArrayList<Vehiculo> vehiculosPorAnio = Vehiculo.searchByYear(vehiculos, Integer.parseInt(TAniomax.getText()), Integer.parseInt(TAniomin.getText()));
             ArrayList<Vehiculo> vehiculosPorRecorrido = Vehiculo.searchByRecorrido(vehiculos, Double.parseDouble(TRecorridomax.getText()), Double.parseDouble(TRecorridomin.getText()));
