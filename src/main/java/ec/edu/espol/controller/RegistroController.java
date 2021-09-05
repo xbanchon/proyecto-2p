@@ -77,7 +77,7 @@ public class RegistroController implements Initializable {
 
     @FXML
     private void registrar(MouseEvent event){
-        if(passtxt.getText()==null || nametxt.getText()==null || lastnametxt.getText()==null || orgtxt.getText()==null || emailtxt.getText()==null || cbox.getValue() == null){
+        if("".equals(passtxt.getText()) || "".equals(nametxt.getText()) || "".equals(lastnametxt.getText()) || "".equals(orgtxt.getText()) || "".equals(emailtxt.getText()) || cbox.getValue() == null){
             Alert a = new Alert(AlertType.WARNING,"Rellene todos los campos.");
             a.show();
         }
