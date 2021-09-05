@@ -50,18 +50,18 @@ public class ResetPassController implements Initializable {
     private void checkPass(MouseEvent event) {
         try {
             LoginController lc = App.loadFXMLLoader("login").getController();
-            Usuario user = lc.searchUsuario();
-            activeUser = user;
-            if(Util.validarCredenciales(user.getCorreo(), passtxt.getText())){
-                bpane.setCenter(null);
-                GridPane gridPane = new GridPane();
-                bpane.setCenter(gridPane);
-                addPasswordResetForm(gridPane); 
-            }
-            else{
-                Alert a = new Alert(Alert.AlertType.ERROR,"Contraseña incorrecta.");
-                a.show();
-            }
+//            Usuario user = lc.searchUsuario();
+//            activeUser = user;
+//            if(Util.validarCredenciales(user.getCorreo(), passtxt.getText())){
+//                bpane.setCenter(null);
+//                GridPane gridPane = new GridPane();
+//                bpane.setCenter(gridPane);
+//                addPasswordResetForm(gridPane); 
+//            }
+//            else{
+//                Alert a = new Alert(Alert.AlertType.ERROR,"Contraseña incorrecta.");
+//                a.show();
+//            }
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
             a.show();

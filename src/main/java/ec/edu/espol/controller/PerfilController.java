@@ -46,13 +46,13 @@ public class PerfilController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             LoginController lc = App.loadFXMLLoader("login").getController();
-            Usuario user = lc.searchUsuario();
-            activeUser = user;
-            nametxt.setText(user.getNombres());
-            lastnametxt.setText(user.getApellidos());
-            orgtxt.setText(user.getOrganizacion());
-            emailtxt.setText(user.getCorreo());
-            setComboBox(user);
+//            Usuario user = lc.searchUsuario();
+//            activeUser = user;
+//            nametxt.setText(user.getNombres());
+//            lastnametxt.setText(user.getApellidos());
+//            orgtxt.setText(user.getOrganizacion());
+//            emailtxt.setText(user.getCorreo());
+//            setComboBox(user);
             
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");

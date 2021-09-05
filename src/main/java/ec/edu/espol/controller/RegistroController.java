@@ -137,15 +137,15 @@ public class RegistroController implements Initializable {
         Usuario usuario;
         if(value.equals("Comprador")){
               int idComp = Util.nextID(usuarios);
-              usuario = new Comprador(idComp,nametxt.getText(),nametxt.getText(),orgtxt.getText(),emailtxt.getText(),Util.toHexString(Util.getSHA(passtxt.getText())));
+              usuario = new Comprador(idComp,nametxt.getText(),lastnametxt.getText(),orgtxt.getText(),emailtxt.getText(),Util.toHexString(Util.getSHA(passtxt.getText())));
         }
         else if(value.equals("Vendedor")){
             int idVend = Util.nextID(usuarios);
-            usuario = new Vendedor(idVend,nametxt.getText(),nametxt.getText(),orgtxt.getText(),emailtxt.getText(),Util.toHexString(Util.getSHA(passtxt.getText())));
+            usuario = new Vendedor(idVend,nametxt.getText(),lastnametxt.getText(),orgtxt.getText(),emailtxt.getText(),Util.toHexString(Util.getSHA(passtxt.getText())));
         }
         else{
             int id = Util.nextID(usuarios);
-            usuario = new Usuario(id,nametxt.getText(),nametxt.getText(),orgtxt.getText(),emailtxt.getText(),Util.toHexString(Util.getSHA(passtxt.getText())));
+            usuario = new Usuario(id,nametxt.getText(),lastnametxt.getText(),orgtxt.getText(),emailtxt.getText(),Util.toHexString(Util.getSHA(passtxt.getText())));
         }
         return usuario;
     }

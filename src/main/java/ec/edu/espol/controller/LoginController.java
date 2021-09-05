@@ -11,9 +11,12 @@ import ec.edu.espol.util.Util;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.PasswordField;
@@ -26,7 +29,7 @@ import javafx.scene.input.MouseEvent;
  * @author Xavier Eduardo
  */
 public class LoginController implements Initializable {
-
+    private String activeUser;
     @FXML
     private TextField usertxt;
     @FXML
@@ -56,12 +59,16 @@ public class LoginController implements Initializable {
         String user = usertxt.getText();
         String pass = passtxt.getText();
         if(Util.validarCredenciales(user, pass)){
+            activeUser = user;
             try {
                 FXMLLoader fxmlLoader = App.loadFXMLLoader("usermenu");
                 App.setRoot(fxmlLoader);
+                UserMenuController umc = fxmlLoader.getController();
+                umc.transferActiveUser(Usuario.searchUsuarioByCorreo(user));
             } catch (IOException ex) {
                 Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
                 a.show();
+               
             }
         }
         else{
@@ -73,10 +80,6 @@ public class LoginController implements Initializable {
                 a.show();
             }
         }
-    }
-    
-    public Usuario searchUsuario(){
-        return Usuario.searchUsuarioByCorreo(usertxt.getText());  
     }
     
     class LoginException extends Exception{
