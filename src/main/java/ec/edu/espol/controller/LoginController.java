@@ -57,8 +57,8 @@ public class LoginController implements Initializable {
         String pass = passtxt.getText();
         if(Util.validarCredenciales(user, pass)){
             try {
-                FXMLLoader fxmlloader = App.loadFXMLLoader("usermenu");
-                App.setRoot(fxmlloader);
+                FXMLLoader fxmlLoader = App.loadFXMLLoader("usermenu");
+                App.setRoot(fxmlLoader);
             } catch (IOException ex) {
                 Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
                 a.show();

@@ -34,6 +34,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class RegistroController implements Initializable {
     private ArrayList<Usuario> usuarios;
+    private ArrayList<String> credencialesL;
     @FXML
     private PasswordField passtxt;
     @FXML
@@ -57,6 +58,10 @@ public class RegistroController implements Initializable {
         String[] opcArray = new String[]{"Comprador","Vendedor","Comprador y Vendedor"};
         Collections.addAll(opciones, opcArray);
         cbox.setItems(FXCollections.observableArrayList(opciones));
+        if(Util.leerCredencialesRegistro() == null)
+            credencialesL = new ArrayList<>();
+        else
+            credencialesL = Util.leerCredencialesRegistro();
     }    
 
     @FXML
@@ -82,6 +87,7 @@ public class RegistroController implements Initializable {
             Usuario usuario = crearNuevoUsuario(cbox.getValue());
             //Añadirlo a una lista de usuarios y mandarla a serializar
             usuario.guardarUsuarios(usuarios);
+            Util.guardarCredencialesRegistro(credencialesL, emailtxt.getText(), passtxt.getText());
             //Regresar a la pantalla de inicio
             try {
                 FXMLLoader fxmlLoader = App.loadFXMLLoader("inicio");

@@ -26,7 +26,7 @@ import javafx.scene.layout.HBox;
  * @author Xavier Eduardo
  */
 public class UserMenuController implements Initializable {
-    
+    private Usuario activeUser;
     @FXML
     private HBox hpane;
 
@@ -37,24 +37,23 @@ public class UserMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         try {
             //Recuperar el controller de login
-            FXMLLoader fxmlLoader = App.loadFXMLLoader("login");
-            LoginController lc = fxmlLoader.getController();
-            Usuario user = lc.searchUsuario();
+            LoginController lc = App.loadFXMLLoader("login").getController();
+            activeUser = lc.searchUsuario();
             //Recuperar el usuario y verificar su instancia
             //Dependiendo de su instancia mostrar los botones de comprar y vender.
             //Añadirle el comportamiento onMOuseClicked a cada botón.
             //Cargar las escenas respectivas.
-//            if(user instanceof Comprador){
-//                addButton( createButton("" , "Comprar un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
+//            if(activeUser instanceof Comprador){
+//                addButton( createButton("ofertarvehiculo" , "Ofertar por un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
 //            }
-//            else if(user instanceof Vendedor){  
-//                addButton( createButton("" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
-//                addButton( createButton("" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
+//            else if(activeUser instanceof Vendedor){  
+//                addButton( createButton("inicio" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
+//                addButton( createButton("inicio" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
 //            }
 //            else{
-//                addButton( createButton("" , "Comprar un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
-//                addButton( createButton("" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
-//                addButton( createButton("" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
+//                addButton( createButton("ofertarvehiculo" , "Ofertar por un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
+//                addButton( createButton("inicio" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
+//                addButton( createButton("inicio" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
 //            }  
         } catch (IOException ex) {}
     }    

@@ -66,7 +66,9 @@ public class Util {
         return hexString.toString(); 
     }
    
-    public static void guardarCredencialesRegistro(ArrayList<String> credencialesL){
+    public static void guardarCredencialesRegistro(ArrayList<String> credencialesL, String correo, String clave){
+        String str = correo + "," + toHexString(getSHA(clave));
+        credencialesL.add(str);
         try(ObjectOutputStream out = new ObjectOutputStream( new FileOutputStream("credenciales.ser") ) ){
             out.writeObject(credencialesL);
             out.flush();
@@ -87,17 +89,13 @@ public class Util {
     }
     
     public static void saveNewCredentials(String email, String pass){
-        String hashPass = Util.toHexString(Util.getSHA(pass));
-        String newCredential = email + "," + hashPass;
         ArrayList<String> credencialesL = leerCredencialesRegistro();
         for(String linea : credencialesL){
             if(linea.startsWith(email)){
                 credencialesL.remove(linea);
-                credencialesL.add(newCredential);
+                guardarCredencialesRegistro(credencialesL , email , pass);
             }
-            
         }
-        guardarCredencialesRegistro(credencialesL);
     }
     
     public static boolean validarCredenciales(String correo, String clave){
@@ -106,13 +104,13 @@ public class Util {
             for(String registro : credencialesL){
                 if(registro.startsWith(correo)){
                     String[] tokens = registro.split(",");
-                    if(tokens[1].equals(Util.toHexString(Util.getSHA(clave))))
+                    String digest = Util.toHexString(Util.getSHA(clave));
+                    if(tokens[1].equals(digest))
                         return true;
                 }
             }
         }
         return false;
-        
     }
     
     public static boolean checkRegistro(String usuario){
