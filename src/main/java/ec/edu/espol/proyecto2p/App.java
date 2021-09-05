@@ -27,7 +27,8 @@ public class App extends Application {
     }
     
     public static void setRoot(FXMLLoader fxmlLoader) throws IOException {
-        scene.setRoot(fxmlLoader.load());
+        Parent root = fxmlLoader.load();
+        scene.setRoot(root);
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
@@ -36,7 +37,7 @@ public class App extends Application {
     }
     
     public static FXMLLoader loadFXMLLoader(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("/ec/edu/espol/proyecto2p/" + fxml + ".fxml"));
         return fxmlLoader;
     }
 

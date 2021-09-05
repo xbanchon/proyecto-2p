@@ -155,7 +155,7 @@ public class Usuario implements Serializable{
     public static Usuario searchUsuarioByCorreo(String correo){
         Usuario usuario = null;
         for(Usuario user: leerUsuarios()){
-            if( (user.correo).equals(correo) )
+            if( (user.getCorreo()).equals(correo) )
                 usuario = user;
         }
         return usuario;
