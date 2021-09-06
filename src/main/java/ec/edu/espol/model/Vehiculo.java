@@ -227,6 +227,14 @@ public class Vehiculo {
     public void setOfertas(ArrayList<Oferta> ofertas) {
         this.ofertas = ofertas;
     }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
+    }
   
     public static ArrayList<Vehiculo> searchByRecorrido(ArrayList<Vehiculo> vehiculos, double maxRec, double minRec) throws VehiculosException{
         ArrayList<Vehiculo> vehFiltr = new ArrayList<>();
