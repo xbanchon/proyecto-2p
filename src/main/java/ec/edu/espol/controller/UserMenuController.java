@@ -5,9 +5,7 @@
  */
 package ec.edu.espol.controller;
 
-import ec.edu.espol.model.Comprador;
 import ec.edu.espol.model.Usuario;
-import ec.edu.espol.model.Vendedor;
 import ec.edu.espol.proyecto2p.App;
 import java.io.IOException;
 import java.net.URL;
@@ -33,33 +31,18 @@ public class UserMenuController implements Initializable {
     private HBox hpane;
     @FXML
     private Text useridtxt;
+    @FXML
+    private Button offerbtn;
+    @FXML
+    private Button sellbtn;
+    @FXML
+    private Button viewofferbtn;
 
     /**
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {        
-            //Recuperar el controller de login
-        
-            //Recuperar el usuario y verificar su instancia
-            //Dependiendo de su instancia mostrar los botones de comprar y vender.
-            //Añadirle el comportamiento onMOuseClicked a cada botón.
-            //Cargar las escenas respectivas.
-            
-            activeUser = Usuario.searchUsuarioByCorreo(useridtxt.getText());
-            if(activeUser instanceof Comprador){
-                addButton( createButton("ofertarvehiculo" , "Ofertar por un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
-            }
-            else if(activeUser instanceof Vendedor){  
-                addButton( createButton("inicio" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
-                addButton( createButton("inicio" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
-            }
-            else{
-                addButton( createButton("ofertarvehiculo" , "Ofertar por un vehículo") );//agregar el fxml de la vista para comprar vehiculos.
-                addButton( createButton("inicio" , "Vender un vehículo") );//agregar el fxml de la vista para vender un vehiculo.
-                addButton( createButton("inicio" , "Ver ofertas") );//agregar el fxml de la vista para ver ofertas de un vehiculo.
-            }  
-            
+    public void initialize(URL url, ResourceBundle rb) {    
     }    
 
     @FXML
@@ -108,5 +91,56 @@ public class UserMenuController implements Initializable {
             Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
             a.show();
         }
+    }
+    
+    private void showOpciones(){
+        activeUser = Usuario.searchUsuarioByCorreo(useridtxt.getText());
+        if(activeUser.getUserRole().equals("Comprador")){
+            hpane.getChildren().remove(sellbtn);
+            hpane.getChildren().remove(viewofferbtn);
+        }
+        else if(activeUser.getUserRole().equals("Vendedor")){  
+            hpane.getChildren().remove(offerbtn);
+        }
+        else{
+          }  
+    }
+
+    @FXML
+    private void loadOfertarVehiculo(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = App.loadFXMLLoader("ofertarvehiculo");
+            App.setRoot(fxmlLoader);
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+            a.show();
+        }  
+    }
+
+    @FXML
+    private void loadVenderVehiculo(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = App.loadFXMLLoader("inicio");
+            App.setRoot(fxmlLoader);
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+            a.show();
+        }  
+    }
+
+    @FXML
+    private void loadVerOfertas(MouseEvent event) {
+        try {
+            FXMLLoader fxmlLoader = App.loadFXMLLoader("inicio");
+            App.setRoot(fxmlLoader);
+        } catch (IOException ex) {
+            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+            a.show();
+        }  
+    }
+
+    @FXML
+    private void refreshView(MouseEvent event) {
+        showOpciones();
     }
 }
