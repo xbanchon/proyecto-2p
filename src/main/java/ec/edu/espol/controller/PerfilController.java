@@ -73,7 +73,10 @@ public class PerfilController implements Initializable {
     private void changePassword(MouseEvent event) {
         try {
             FXMLLoader fxmlLoader = App.loadFXMLLoader("resetpass");
-            App.setRoot(fxmlLoader);
+            Parent root = fxmlLoader.load();
+            ResetPassController rpc = fxmlLoader.getController();
+            rpc.transferActiveUser(emailtxt.getText());
+            App.setRoot(root);
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
             a.show();
@@ -109,5 +112,9 @@ public class PerfilController implements Initializable {
     
     public void setEmail(String email){
         emailtxt.setText(email);
-    }  
+    } 
+    
+    public String getEmail(){
+        return emailtxt.getText();
+    }
 }

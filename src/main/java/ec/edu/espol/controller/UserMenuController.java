@@ -98,4 +98,15 @@ public class UserMenuController implements Initializable {
     public void transferActiveUser(String userID){
         useridtxt.setText(userID);
     }
+
+    @FXML
+    private void backToInicio(MouseEvent event) {
+        try{
+            FXMLLoader fxmlLoader = App.loadFXMLLoader("inicio");
+            App.setRoot(fxmlLoader);
+        } catch(IOException ex){
+            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+            a.show();
+        }
+    }
 }

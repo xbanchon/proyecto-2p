@@ -39,6 +39,8 @@ public class ResetPassController implements Initializable {
     private BorderPane bpane;
     @FXML
     private PasswordField passtxt;
+    @FXML
+    private Text useridtxt;
 
     /**
      * Initializes the controller class.
@@ -50,32 +52,45 @@ public class ResetPassController implements Initializable {
 
     @FXML
     private void checkPass(MouseEvent event) {
-        try {
-            LoginController lc = App.loadFXMLLoader("login").getController();
-//            Usuario user = lc.searchUsuario();
-//            activeUser = user;
-//            if(Util.validarCredenciales(user.getCorreo(), passtxt.getText())){
-//                bpane.setCenter(null);
-//                GridPane gridPane = new GridPane();
-//                bpane.setCenter(gridPane);
-//                addPasswordResetForm(gridPane); 
-//            }
-//            else{
-//                Alert a = new Alert(Alert.AlertType.ERROR,"Contraseña incorrecta.");
-//                a.show();
-//            }
-        } catch (IOException ex) {
-            Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+        activeUser = Usuario.searchUsuarioByCorreo(useridtxt.getText());
+        if(Util.validarCredenciales(activeUser.getCorreo(), passtxt.getText())){
+            try{
+                FXMLLoader fxmlLoader = App.loadFXMLLoader("resetpassform");
+                Parent root = fxmlLoader.load();
+                ResetPassFormController rpfc = fxmlLoader.getController();
+                rpfc.transferActiveUser(useridtxt.getText());
+                App.setRoot(root);
+            } catch (IOException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+                    alert.show();
+                }
+        }
+        else{
+            Alert a = new Alert(Alert.AlertType.ERROR,"Contraseña incorrecta.");
             a.show();
         }
     }
     
     private void actionButton(Button button, String newPass, String passConf){
         button.setOnMouseClicked((MouseEvent me)->{
-            if(newPass.equals(passConf)){
+            if(newPass.equals(passConf) && !newPass.equals("")){
                 Util.saveNewCredentials(activeUser.getCorreo(), Util.toHexString(Util.getSHA(newPass)) );
                 Alert a = new Alert(Alert.AlertType.INFORMATION,"Se ha guardado su nueva contraseña!");
                 a.show();
+                try{
+                    FXMLLoader fxmlloader = App.loadFXMLLoader("perfil");
+                    Parent root = fxmlloader.load();
+                    PerfilController pc = fxmlloader.getController();
+                    pc.setName(activeUser.getNombres());
+                    pc.setLastName(activeUser.getApellidos());
+                    pc.setOrganization(activeUser.getOrganizacion());
+                    pc.setEmail(activeUser.getCorreo());
+                    pc.setComboBox();
+                    App.setRoot(root);
+                } catch (IOException ex) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
+                    alert.show();
+                }
             }
             else{
                 Alert a = new Alert(Alert.AlertType.ERROR,"Las contraseñas no coinciden. Inténtelo de nuevo");
@@ -87,14 +102,14 @@ public class ResetPassController implements Initializable {
     private void addPasswordResetForm(GridPane gridPane){
         HBox hboxU = new HBox();
         hboxU.getChildren().add(new Text("Ingrese su nueva contraseña:"));
-        PasswordField newPass = new PasswordField();
+        final PasswordField newPass = new PasswordField();
         hboxU.getChildren().add(newPass);
         hboxU.setAlignment(Pos.CENTER);
         gridPane.add(hboxU, 0, 0);
 
         HBox hboxL = new HBox();
         hboxL.getChildren().add(new Text("Confirme su nueva contraseña:"));
-        PasswordField passConf = new PasswordField();
+        final PasswordField passConf = new PasswordField();
         hboxL.getChildren().add(passConf);
         hboxL.setAlignment(Pos.CENTER);
         gridPane.add(hboxL, 0, 1);
@@ -107,12 +122,24 @@ public class ResetPassController implements Initializable {
 
     @FXML
     private void goBack(MouseEvent event) {
+        activeUser = Usuario.searchUsuarioByCorreo(useridtxt.getText());
         try{
             FXMLLoader fxmlloader = App.loadFXMLLoader("perfil");
-            App.setRoot(fxmlloader);
+            Parent root = fxmlloader.load();
+            PerfilController pc = fxmlloader.getController();
+            pc.setName(activeUser.getNombres());
+            pc.setLastName(activeUser.getApellidos());
+            pc.setOrganization(activeUser.getOrganizacion());
+            pc.setEmail(activeUser.getCorreo());
+            pc.setComboBox();
+            App.setRoot(root);
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
             a.show();
         }
+    }
+    
+    public void transferActiveUser(String userID){
+        useridtxt.setText(userID);
     }
 }
