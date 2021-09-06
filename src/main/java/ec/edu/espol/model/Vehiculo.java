@@ -35,6 +35,7 @@ public class Vehiculo {
     private String transmision;//no apica para motos
     private String traccion;//aplica para camionetas
     private ArrayList<Oferta> ofertas;
+    private String foto;
     
     public Vehiculo(int id, String placa, String marca, String modelo, String tipoMotor, int anio, double recorrido, 
             String color, String tipoCombustible, double precio, String idVendedor, String vidrios, String transmision){//constructor carro
@@ -227,7 +228,7 @@ public class Vehiculo {
         this.ofertas = ofertas;
     }
   
-    public static ArrayList<Vehiculo> searchByRecorrido(ArrayList<Vehiculo> vehiculos, double maxRec, double minRec){
+    public static ArrayList<Vehiculo> searchByRecorrido(ArrayList<Vehiculo> vehiculos, double maxRec, double minRec) throws VehiculosException{
         ArrayList<Vehiculo> vehFiltr = new ArrayList<>();
         for(Vehiculo vehiculo: vehiculos){
             if(vehiculo.recorrido >= minRec && vehiculo.recorrido <= maxRec)
@@ -236,7 +237,7 @@ public class Vehiculo {
         return vehFiltr;
     }
     
-    public static ArrayList<Vehiculo> searchByYear(ArrayList<Vehiculo> vehiculos, int maxYr, int minYr){
+    public static ArrayList<Vehiculo> searchByYear(ArrayList<Vehiculo> vehiculos, int maxYr, int minYr) throws VehiculosException{
         ArrayList<Vehiculo> vehFiltr = new ArrayList<>();
         for(Vehiculo vehiculo: vehiculos){
             if(vehiculo.anio >= minYr && vehiculo.anio <= maxYr)
@@ -245,7 +246,7 @@ public class Vehiculo {
         return vehFiltr;  
     }
     
-    public static ArrayList<Vehiculo> searchByPrecio(ArrayList<Vehiculo> vehiculos, double maxPr, double minPr){
+    public static ArrayList<Vehiculo> searchByPrecio(ArrayList<Vehiculo> vehiculos, double maxPr, double minPr) throws VehiculosException{
         ArrayList<Vehiculo> vehFiltr = new ArrayList<>();
         for(Vehiculo vehiculo: vehiculos){
             if(vehiculo.getPrecio() >= minPr && vehiculo.getPrecio() <= maxPr)
@@ -254,16 +255,17 @@ public class Vehiculo {
         return vehFiltr;
     }
     
-    public static ArrayList<Vehiculo> searchByTipoVehiculo(ArrayList<Vehiculo> vehiculos, String tipoVehiculo){
-        ArrayList<Vehiculo> vehFiltr = new ArrayList<>();
+    public static ArrayList<Vehiculo> searchByTipoVehiculo(ArrayList<Vehiculo> vehiculos, String tipoVehiculo) throws VehiculosException{
+        ArrayList<Vehiculo> vehFiltr = new ArrayList<>();      
         for(Vehiculo vehiculo: vehiculos){
             if(tipoVehiculo.equals(vehiculo.getTipoVehiculo()))
                 vehFiltr.add(vehiculo);
         }
+        
         return vehFiltr;
     }
     
-    public static ArrayList<Vehiculo> searchByIDVendedor(ArrayList<Vehiculo> vehiculos, String idVend){
+    public static ArrayList<Vehiculo> searchByIDVendedor(ArrayList<Vehiculo> vehiculos, String idVend) throws VehiculosException{
         ArrayList<Vehiculo> vehFiltr = new ArrayList<>();
         for(Vehiculo vehiculo: vehiculos){
             if(vehiculo.idVendedor.equals(idVend))
@@ -272,7 +274,7 @@ public class Vehiculo {
         return vehFiltr;
     }
     
-    public static Vehiculo searchByPlaca(ArrayList<Vehiculo> vehiculos, String placa){
+    public static Vehiculo searchByPlaca(ArrayList<Vehiculo> vehiculos, String placa) throws VehiculosException{
         Vehiculo vehiculo = null;
         for(Vehiculo v: vehiculos){
             if(placa.equals(v.placa))
@@ -281,7 +283,7 @@ public class Vehiculo {
         return vehiculo;
     }
     
-    public static Vehiculo searchByID(ArrayList<Vehiculo> vehiculos, int idVehiculo){
+    public static Vehiculo searchByID(ArrayList<Vehiculo> vehiculos, int idVehiculo) throws VehiculosException{
         Vehiculo vehiculo = null;
         for(Vehiculo v: vehiculos){
             if(v.id == idVehiculo)
