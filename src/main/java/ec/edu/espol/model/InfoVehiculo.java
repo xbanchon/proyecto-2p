@@ -5,67 +5,64 @@
  */
 package ec.edu.espol.model;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  *
  * @author Erick
  */
 public class InfoVehiculo {
-    private String tipo;
-    private int anio;
-    private double recorrido;
-    private double precio;
-    private String imagen;
+    private SimpleStringProperty tipo = new SimpleStringProperty();
+    private SimpleIntegerProperty anio = new SimpleIntegerProperty();
+    private SimpleDoubleProperty recorrido = new SimpleDoubleProperty();
+    private SimpleDoubleProperty precio = new SimpleDoubleProperty();
+    private SimpleStringProperty imagen = new SimpleStringProperty();
 
-    public InfoVehiculo(String tipo, int anio, double recorrido, double precio, String imagen) {
-        this.tipo = tipo;
-        this.anio = anio;
-        this.recorrido = recorrido;
-        this.precio = precio;
-        this.imagen = imagen;
-    }
-
-    public InfoVehiculo() {
-    }
+   public InfoVehiculo(){
+       
+   }
 
     public String getTipo() {
-        return tipo;
+        return tipo.get();
     }
 
     public int getAnio() {
-        return anio;
+        return anio.get();
     }
 
     public double getRecorrido() {
-        return recorrido;
+        return recorrido.get();
     }
 
     public double getPrecio() {
-        return precio;
+        return precio.get();
     }
 
     public String getImagen() {
-        return imagen;
+        return imagen.get();
     }
 
     public void setTipo(String tipo) {
-        this.tipo = tipo;
+        this.tipo.set(tipo);
     }
 
     public void setAnio(int anio) {
-        this.anio = anio;
+        this.anio.set(anio);
     }
 
-    public void setRecorrido(double recorrido) {
+    public void setRecorrido(SimpleDoubleProperty recorrido) {
         this.recorrido = recorrido;
     }
 
-    public void setPrecio(double precio) {
+    public void setPrecio(SimpleDoubleProperty precio) {
         this.precio = precio;
     }
 
-    public void setImagen(String imagen) {
+    public void setImagen(SimpleStringProperty imagen) {
         this.imagen = imagen;
     }
     
-    
+   
 }
