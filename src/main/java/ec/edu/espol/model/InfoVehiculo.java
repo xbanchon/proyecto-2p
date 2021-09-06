@@ -8,6 +8,7 @@ package ec.edu.espol.model;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.image.ImageView;
 
 /**
  *
@@ -18,7 +19,7 @@ public class InfoVehiculo {
     private SimpleIntegerProperty anio = new SimpleIntegerProperty();
     private SimpleDoubleProperty recorrido = new SimpleDoubleProperty();
     private SimpleDoubleProperty precio = new SimpleDoubleProperty();
-    private SimpleStringProperty imagen = new SimpleStringProperty();
+    private ImageView imagen;
 
    public InfoVehiculo(){
        
@@ -40,10 +41,6 @@ public class InfoVehiculo {
         return precio.get();
     }
 
-    public String getImagen() {
-        return imagen.get();
-    }
-
     public void setTipo(String tipo) {
         this.tipo.set(tipo);
     }
@@ -60,9 +57,11 @@ public class InfoVehiculo {
         this.precio = precio;
     }
 
-    public void setImagen(SimpleStringProperty imagen) {
+    public void setImagen(ImageView imagen) {
         this.imagen = imagen;
     }
+
+ 
     
    
 }
