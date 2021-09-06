@@ -47,7 +47,7 @@ public class ResetPassFormController implements Initializable {
         String newPass = newpasstxt.getText();
         String passConf = confpasstxt.getText();
         if(newPass.equals(passConf) && !newPass.equals("")){
-                Util.saveNewCredentials(activeUser.getCorreo(), Util.toHexString(Util.getSHA(newPass)) );
+                Util.saveNewCredentials(activeUser.getCorreo(), newpasstxt.getText() );
                 Alert a = new Alert(Alert.AlertType.INFORMATION,"Se ha guardado su nueva contraseña!");
                 a.show();
                 try{

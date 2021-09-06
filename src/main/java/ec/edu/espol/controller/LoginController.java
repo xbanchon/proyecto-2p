@@ -74,6 +74,8 @@ public class LoginController implements Initializable {
                 throw new LoginException();
             }
             catch(LoginException ex){
+                usertxt.setText("");
+                passtxt.setText("");
                 Alert a = new Alert(AlertType.ERROR,ex.getMessage());
                 a.show();
             }
