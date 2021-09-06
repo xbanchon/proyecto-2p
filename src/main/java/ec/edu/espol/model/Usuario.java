@@ -5,14 +5,9 @@
  */
 package ec.edu.espol.model;
 
-import ec.edu.espol.util.Util;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -29,7 +24,7 @@ public class Usuario implements Serializable{
     protected String apellidos;
     protected String organizacion;
     protected String correo;
-    protected String clave;
+    protected transient String clave;
     private String rol;
 
     public Usuario(int id, String nombres, String apellidos, String organizacion, String correo, String clave) {
@@ -103,9 +98,9 @@ public class Usuario implements Serializable{
         this.rol = rol;
     }
     
-    public void changeUserRole(String newRole) {
+    public void changeUserRole(ArrayList<Usuario> users, String newRole) {
         if(!this.getUserRole().equals(newRole)){
-            ArrayList<Usuario> users = leerUsuarios();
+            //ArrayList<Usuario> users = leerUsuarios();
             for(Usuario usuario: users){
                 if(this.equals(usuario)){
                     if(newRole.equals("Comprador"))

@@ -49,8 +49,9 @@ public class PerfilController implements Initializable {
 
     @FXML
     private void saveChanges(MouseEvent event) {
+        activeUser = Usuario.searchUsuarioByCorreo(emailtxt.getText());
         String role = roleCbox.getValue();
-        activeUser.changeUserRole(role);
+        activeUser.changeUserRole(Usuario.leerUsuarios(),role);
         Alert a = new Alert(Alert.AlertType.INFORMATION,"Se han guardado los cambios.");
         a.show();
     }

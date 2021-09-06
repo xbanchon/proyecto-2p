@@ -64,20 +64,6 @@ public class UserMenuController implements Initializable {
         }
     }
     
-    private Button createButton(String fxml, String label){
-        Button button = new Button(label);
-        button.setOnMouseClicked((MouseEvent me)->{
-            try {
-                FXMLLoader fxmlLoader = App.loadFXMLLoader(fxml);
-                App.setRoot(fxmlLoader);
-            } catch (IOException ex) {}   
-        });
-        return button;
-    }
-    private void addButton(Button button){
-        hpane.getChildren().add(button);
-    }
-    
     public void transferActiveUser(String userID){
         useridtxt.setText(userID);
     }
@@ -120,7 +106,7 @@ public class UserMenuController implements Initializable {
     @FXML
     private void loadVenderVehiculo(MouseEvent event) {
         try {
-            FXMLLoader fxmlLoader = App.loadFXMLLoader("inicio");
+            FXMLLoader fxmlLoader = App.loadFXMLLoader("vendervehiculo");
             App.setRoot(fxmlLoader);
         } catch (IOException ex) {
             Alert a = new Alert(Alert.AlertType.ERROR,"No se pudo leer el archivo FXML.");
