@@ -27,6 +27,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -85,7 +87,7 @@ public class OfertarPorVechículoController implements Initializable {
         CRecorrido.setCellValueFactory(new PropertyValueFactory<InfoVehiculo, Double>("recorrido"));
         CPrecio.setCellValueFactory(new PropertyValueFactory<InfoVehiculo, Double>("precio"));
         CFoto.setCellValueFactory(new PropertyValueFactory<InfoVehiculo, String>("foto"));
-        vehiculosTable.setItems(vehiculosOB);
+
         
     }    
 
@@ -111,13 +113,18 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
-            Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
-            a.show();
-            }            
+                Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
+                a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
+            }
         }
         else if (VCBox.getValue()!=null && "".equals(TRecorridomax.getText()) && "".equals(TAniomax.getText()) && "".equals(TPreciomax.getText())){                     
             try{
@@ -128,12 +135,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()==null && !"".equals(TRecorridomax.getText()) && "".equals(TAniomax.getText()) && "".equals(TPreciomax.getText())){
@@ -145,12 +157,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()==null && "".equals(TRecorridomax.getText()) && !"".equals(TAniomax.getText()) && "".equals(TPreciomax.getText())){            
@@ -162,12 +179,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if ("".equals(VCBox.getValue()) && "".equals(TRecorridomax.getText()) && "".equals(TAniomax.getText()) && !"".equals(TPreciomax.getText())){            
@@ -179,12 +201,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()!=null && !"".equals(TRecorridomax.getText()) && "".equals(TAniomax.getText()) && "".equals(TPreciomax.getText())){            
@@ -199,12 +226,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()!=null && "".equals(TRecorridomax.getText()) && !"".equals(TAniomax.getText()) && "".equals(TPreciomax.getText())){          
@@ -219,12 +251,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()!=null && "".equals(TRecorridomax.getText()) && "".equals(TAniomax.getText()) && !"".equals(TPreciomax.getText())){           
@@ -239,12 +276,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()==null && !"".equals(TRecorridomax.getText()) && !"".equals(TAniomax.getText()) && "".equals(TPreciomax.getText())){            
@@ -259,12 +301,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()==null && "".equals(TRecorridomax.getText()) && !"".equals(TAniomax.getText()) && !"".equals(TPreciomax.getText())){           
@@ -279,12 +326,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()==null && !"".equals(TRecorridomax.getText()) && "".equals(TAniomax.getText()) && !"".equals(TPreciomax.getText())){           
@@ -299,12 +351,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()!=null && !"".equals(TRecorridomax.getText()) && !"".equals(TAniomax.getText()) && "".equals(TPreciomax.getText())){
@@ -321,12 +378,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()!=null && !"".equals(TRecorridomax.getText()) && "".equals(TAniomax.getText()) && !"".equals(TPreciomax.getText())){
@@ -344,12 +406,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()!=null && "".equals(TRecorridomax.getText()) && !"".equals(TAniomax.getText()) && !"".equals(TPreciomax.getText())){            
@@ -366,12 +433,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if ("".equals(VCBox.getValue()) && !"".equals(TRecorridomax.getText()) && !"".equals(TAniomax.getText()) && !"".equals(TPreciomax.getText())){            
@@ -388,12 +460,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
         else if (VCBox.getValue()!=null && !"".equals(TRecorridomax.getText()) && !"".equals(TAniomax.getText()) && !"".equals(TPreciomax.getText())){          
@@ -412,12 +489,17 @@ public class OfertarPorVechículoController implements Initializable {
                     infovehi.setAnio(v.getAnio());
                     infovehi.setRecorrido(new SimpleDoubleProperty(v.getRecorrido()));
                     infovehi.setPrecio(new SimpleDoubleProperty(v.getPrecio()));
+                    ImageView imv = new ImageView(v.getFoto());
+                    infovehi.setImagen(imv);
                     vehiculosOB.add(infovehi);
                 }
             }
             catch (Exception e){
             Alert a  = new Alert(Alert.AlertType.WARNING,"No se encontraron vehículos con los parámetros buscados");
             a.show();
+            }
+            finally{
+                vehiculosTable.setItems(vehiculosOB);
             }
         }
     } 
